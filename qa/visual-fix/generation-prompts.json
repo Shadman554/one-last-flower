@@ -1,0 +1,9 @@
+{
+  "tool": "Built-in image_gen",
+  "references": [
+    "start button.png",
+    "Meeting choice buttons .png",
+    "assets/card.png"
+  ],
+  "panel_atlas_prompt": "Use case: illustration-story UI asset extension. Reference image is the existing romantic message card, absolute style source of truth. Create a transparent PNG atlas of exactly THREE completely BLANK illustrated panels in its SAME delicate hand-drawn style. Keep its dark reddish-brown thin irregular ink contour, cream nearly-white softly textured center, watercolor pastel-pink edges, white painted shine, and original pink five-petal flowers with yellow centers, olive leaves, tiny pink outlined hearts/petals at corner clusters. All centers must be completely empty for text rendered separately. NO letters, numbers, text or symbols in the centers. All three assets are isolated on a genuinely transparent background, no shadows beyond the outline, no background rectangles. Layout: TOP LEFT a LANDSCAPE card aspect ratio exactly 1.5:1 (roughly x40-900 y40-610 on a 1536x1024 atlas), with a SMALL flower cluster confined to the extreme upper-left and lower-right corners and very generous central blank space. TOP RIGHT a PORTRAIT calendar panel aspect ratio exactly 0.8:1 (roughly x1000-1500 y40-665), same small extreme-corner decorations leaving room for calendar text. BOTTOM LEFT a VERY WIDE slim notification ribbon aspect ratio exactly 5:1 (roughly x40-900 y760-932), tiny flowers on the extreme LEFT AND RIGHT ends only, long blank cream center. Each panel must be fully visible, not clipped. No source card duplication inside the new card; no character, no flower bouquet, no slider, no buttons, no redesign. Adapt only the frame dimensions while matching the exact line, palette, texture and floral motifs of the original. Leave generous transparent gaps between the three items."
+}

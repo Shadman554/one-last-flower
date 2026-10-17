@@ -1,0 +1,26 @@
+app = "one-last-flower"
+primary_region = "iad"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PORT = "4173"
+  HOST = "0.0.0.0"
+  NODE_ENV = "production"
+  GAME_DB_PATH = "/app/data/meeting-dates.sqlite"
+
+[http_service]
+  internal_port = 4173
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 1
+
+[mounts]
+  source = "flower_data"
+  destination = "/app/data"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"

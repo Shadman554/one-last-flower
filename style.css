@@ -1,0 +1,179 @@
+@font-face{font-family:Kalam;src:url('assets/fonts/Kalam-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:Kalam;src:url('assets/fonts/Kalam-Bold.ttf') format('truetype');font-weight:700;font-style:normal;font-display:swap}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{background:#f7eee2;color:#542b23;font-family:Kalam,cursive;font-size:18px;font-synthesis:none;display:grid;place-items:center;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
+button,input,output{font:inherit;color:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+button:focus-visible,input:focus-visible{outline:3px solid #8f405b;outline-offset:4px}
+button:active{transform:scale(.95)}button:disabled{cursor:default;opacity:.4}
+#frame{position:relative;width:450px;height:800px;overflow:hidden}
+#game{width:450px;height:800px;position:relative;transform-origin:top left;overflow:hidden;background:#fffaf2;touch-action:none}
+canvas{position:absolute;inset:0;width:450px;height:800px}
+#toolbar{position:absolute;inset:24px 23px auto;display:flex;justify-content:flex-end;gap:12px;z-index:5}
+.art-button{border:0;background:transparent;padding:0;width:190px;min-height:52px;display:inline-flex;align-items:center;justify-content:center}
+.art-button img{width:100%;height:auto;object-fit:contain;display:block;pointer-events:none}
+.art-button.icon{width:45px;height:45px;min-height:0;flex-shrink:0}
+.art-button.icon img{width:45px;height:45px}
+.counter{margin-right:auto;position:relative;width:116px;height:46px;background:url('assets/counter.png') center/contain no-repeat;display:flex;align-items:center;justify-content:center;padding:3px 0 0 22px;font-size:23px;font-weight:700}
+.scene{position:absolute;inset:93px 25px 20px;text-align:center;display:flex;align-items:center;flex-direction:column}
+.eyebrow{font-size:14px;line-height:1.3;color:#7b4e40;margin:0 0 10px;font-weight:400;letter-spacing:.15px}
+.flourish{display:flex;align-items:center;justify-content:center;gap:14px;height:28px;margin:0 0 9px}
+.flourish img{height:17px;width:auto}.flourish img:nth-child(2){height:25px}
+h1,h2{font-weight:700;margin:0;color:#542b23;letter-spacing:0;text-wrap:balance}
+h1{font-size:43px;line-height:1.15}h1 i{font-style:normal}
+h2{font-size:32px;line-height:1.18}
+.inline-art{display:inline-block;height:1.05em;width:auto;max-width:1.2em;object-fit:contain;vertical-align:-.12em;margin:0 .06em}
+.title-sub{font-size:19px;line-height:1.35;margin:14px 0 0;max-width:340px}
+.tiny{font-size:14px;line-height:1.4;color:#714c40}
+.title-bottom{position:absolute;bottom:31px;left:0;right:0}
+.title-bottom .tiny{max-width:340px;margin:13px auto 0}
+.next{position:absolute;bottom:15px}
+/* Whole PNG frames are fitted proportionally; no decorative shape is drawn in CSS. */
+.card,.game-message,.hint,.question-panel,.calendar,.toast,.pause-card,.title-sub,.title-bottom .tiny{border:0;background:none}
+.card{min-height:145px;width:100%;padding:4px 0;display:flex;justify-content:center;align-items:center;flex-direction:column;font-size:19px;line-height:1.35}
+.card p{margin:3px 0}
+.story-card{position:absolute;bottom:91px}
+.badge{font-size:15px;line-height:1.3;margin-top:12px;color:#765441}
+.game-heading{font-size:34px}
+.game-message{position:absolute;top:177px;left:35px;right:35px;min-height:83px;padding:0;text-align:center;font-size:18px;line-height:1.3}
+.hint{position:absolute;bottom:112px;left:15px;right:15px;text-align:center;font-size:14px;line-height:1.25;padding:2px 0}
+.title-sub{padding:1px 0}
+.title-bottom .tiny{padding:1px 0}
+.controls{position:absolute;inset:auto 24px 24px;display:flex;gap:16px}
+.art-button.control{width:73px;height:73px;min-height:0;padding:0;border:0;background:none;touch-action:none;user-select:none}
+.art-button.control img{width:73px;height:73px;pointer-events:none;object-fit:contain}
+.control:last-child{margin-left:auto}.control.held{transform:scale(.91);filter:brightness(.94)}
+.question-panel{position:absolute;top:145px;left:0;right:0;padding:8px 0;}
+.question-panel p{font-size:22px;line-height:1.25;margin:0 0 8px}
+.score{display:block;font-size:38px;line-height:1.2;font-weight:700;color:#8d4053;margin:8px}
+.range-labels{display:flex;justify-content:space-between;font-size:15px;line-height:1.3;margin:10px 0 7px}
+input[type=range]{width:100%;height:38px;appearance:none;background:transparent;touch-action:pan-x;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:20px;background:url('assets/ui/slider-rail.png') center/100% auto no-repeat;border:0}
+input[type=range]::-webkit-slider-thumb{appearance:none;width:38px;height:35px;margin-top:-8px;background:url('assets/ui/heart.png') center/contain no-repeat;border:0}
+input[type=range]::-moz-range-track{height:20px;background:url('assets/ui/slider-rail.png') center/100% auto no-repeat;border:0}
+input[type=range]::-moz-range-progress{background:transparent}
+input[type=range]::-moz-range-thumb{width:38px;height:35px;background:url('assets/ui/heart.png') center/contain no-repeat;border:0;border-radius:0}
+/* Dynamic labels sit on a new blank PNG; embedded original labels are never covered. */
+.soft-button{border:0;background:none;padding:2px 0 0;min-height:58px;font-size:19px;font-weight:700;line-height:1.25;display:inline-flex;align-items:center;justify-content:center;gap:4px;white-space:nowrap}
+.choices{position:absolute;bottom:4px;display:flex;flex-direction:column;gap:7px;width:100%;align-items:center}
+.art-button.choice{width:100%;height:91px}
+.soft-button.choice{width:100%;height:91px;font-size:19px}
+.invitation .story-card{bottom:202px}
+.invitation h2{font-size:32px}
+.long-message{font-size:18px;line-height:1.35}
+.calendar{position:absolute;top:133px;width:100%;padding:0 0 1px;}
+.calendar-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;font-size:21px}
+.art-button.calendar-arrow{width:40px;height:40px;min-height:0}.calendar-arrow img{width:40px;height:40px}
+.week,.dates{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.week{font-size:15px;line-height:1.2;margin-bottom:6px}
+.day{height:35px;border:0;background:transparent;font-size:19px;line-height:1;padding:3px 0 0}
+.day.today{font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.day.selected{background:url('assets/ui/calendar-tile.png') center/contain no-repeat;color:#542b23;text-decoration:none;font-weight:700}
+.selected-date{font-size:17px;line-height:1.25;min-height:23px;margin:12px 0 9px}
+.calendar .soft-button{font-size:18px;min-height:53px;}
+.calendar-note{font-size:13px;line-height:1.3;margin:9px 2px 0;color:#714c40}
+.back{border:0;background:none;text-decoration:underline;font-size:15px;line-height:1.3;margin-top:10px;padding:4px}
+.ending-actions{position:absolute;bottom:0;display:flex;gap:9px;flex-wrap:wrap;justify-content:center;width:100%}
+.ending-actions .soft-button{font-size:18px;min-height:55px;}
+.ending-actions .wide{width:100%}
+.ending-card{bottom:143px;font-size:17px}
+.card .tiny{font-size:13px;line-height:1.3}
+.close-card{top:190px;position:absolute}
+.toast{position:absolute;top:72px;left:25px;right:25px;padding:2px 0;font-size:15px;line-height:1.3;text-align:center;z-index:8}
+#pause-layer{position:absolute;inset:0;background:#fff6e9d9;z-index:10;text-align:center;padding:220px 25px 30px}
+.pause-card{padding:10px 0 15px}
+.pause-card h2{font-size:31px;margin:0 0 13px}
+.pause-card p{font-size:18px;line-height:1.3;margin:0 0 12px}
+.pause-card button{margin:5px 0}
+#fade{position:absolute;inset:0;background:#fff6eb;pointer-events:none;opacity:0;transition:opacity .22s;z-index:15}#fade.active{opacity:1}
+#loading{position:absolute;inset:0;background:#fff8ee;display:grid;place-content:center;justify-items:center;text-align:center;gap:25px;z-index:20;font-size:23px}
+#loading img{object-fit:contain}
+.line-reveal{animation:appear .7s both}@keyframes appear{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){#fade{transition:none}.line-reveal{animation:none}}
+
+/* Proportional whole-image artwork and final text-safe positioning. */
+.card{height:190px;min-height:0;background:url('assets/card.png') center/contain no-repeat;padding:30px 32px 23px}
+.long-message,.ending-card{height:260px;background-image:url('assets/ui/landscape-panel.png');padding:42px 33px 28px}
+#type-message{height:190px;background-image:url('assets/card.png');padding:32px}
+.game-message{height:101px;min-height:0;background:url('assets/ui/blank-button.png') center/contain no-repeat;padding:21px 55px 18px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:3px}
+.hint{background:none;padding:0 12px;bottom:115px;font-size:14px;font-weight:700;line-height:1.25}
+.title-sub{height:91px;width:350px;max-width:350px;background:url('assets/ui/blank-button.png') center/contain no-repeat;margin-top:12px;padding:18px 42px;display:flex;align-items:center;justify-content:center;font-size:18px;line-height:1.25}
+.title-bottom .tiny{height:40px;max-width:400px;background:url('assets/ui/slim-banner.png') center/contain no-repeat;margin:14px auto 0;padding:10px 29px 5px;font-size:13px;line-height:1.2}
+.question-panel{height:260px;background:url('assets/ui/landscape-panel.png') center/contain no-repeat;padding:42px 34px 26px}
+.question-panel p{font-size:21px}
+.soft-button{background:url('assets/ui/blank-button.png') center/contain no-repeat;border:0;padding:12px 37px;min-height:58px;min-width:148px;max-width:100%;font-size:18px;gap:3px}
+.soft-button.next{width:300px;height:76px;padding:18px 45px}
+.art-button.choice img{width:100%;height:100%;object-fit:contain}
+.soft-button.choice{height:91px;width:100%;padding:20px 60px;font-size:18px}
+.calendar{width:368px;height:558px;top:118px;left:16px;background:url('assets/ui/portrait-panel.png') center/contain no-repeat;padding:45px 26px 23px}
+.calendar-nav{font-size:20px;margin-bottom:4px}
+.art-button.calendar-arrow,.calendar-arrow img{width:35px;height:35px}
+.week{font-size:14px;margin-bottom:4px}.day{height:30px;font-size:18px}.dates{gap:2px}
+.selected-date{font-size:16px;line-height:1.2;margin:9px 0 5px;min-height:22px}
+.calendar .soft-button{height:52px;min-height:52px;width:240px;padding:12px 32px;font-size:17px}
+.calendar-note{font-size:12px;line-height:1.2;margin:5px 0 0}
+.back{font-size:14px;margin-top:5px;line-height:1.15;padding:3px}
+.ending-actions{gap:5px 8px}
+.ending-actions .soft-button{height:48px;min-height:48px;min-width:0;padding:8px 24px;font-size:17px}
+.ending-actions .wide{width:300px;height:77px;padding:17px 44px}
+.ending-actions .soft-button:not(.wide){width:120px}
+.toast{height:80px;background:url('assets/ui/blank-button.png') center/contain no-repeat;padding:18px 54px;font-size:14px;display:flex;align-items:center;justify-content:center}
+.pause-card{height:300px;background:url('assets/ui/landscape-panel.png') center/contain no-repeat;padding:47px 36px 30px}
+.pause-card h2{font-size:29px;margin-bottom:8px}.pause-card p{font-size:17px;margin-bottom:5px}
+.pause-card button{display:flex;margin:3px auto;min-height:50px;height:50px;width:190px;padding:8px 34px}
+.question-panel{padding-top:64px;padding-bottom:10px}
+.question-panel p{margin-bottom:5px}
+.question-panel .score{font-size:36px;line-height:1.1;margin:4px}
+.question-panel .range-labels{margin:6px 0 4px}
+.calendar{padding-top:100px}.calendar.six-weeks .day{height:27px}
+.pause-card{height:340px;padding-top:82px}
+.title-bottom .tiny{padding:9px 26px 0;display:flex;align-items:center;justify-content:center}
+.game-message{display:block;padding-top:22px}
+.card-copy{width:100%}
+.soft-button.choice{font-size:20px}
+.calendar-note{max-width:240px;margin:5px auto 0}
+
+/* Layout follows the supplied empty garden scenes, with the dialogue below the path. */
+body,#game{background:#fffefa;color:#38251f}
+h1,h2{color:#38251f}
+.scene[data-scene=TITLE] h1{margin-top:33px;font-size:43px;line-height:1.2}
+.title-bottom{bottom:46px}
+.eyebrow{font-size:16px;font-weight:700;letter-spacing:1px;color:#38251f;margin:12px 0 12px}
+.eyebrow:empty{display:none}
+.game-heading{font-size:41px;line-height:1.12}
+.game-message{top:auto;bottom:133px;left:35px;right:35px;height:113px;padding:27px 48px 20px;font-size:20px;line-height:1.25;display:flex;align-items:center;justify-content:center}
+.hint{bottom:113px;font-size:12px}
+.controls{bottom:25px}
+.collection-next{position:absolute;bottom:27px;left:130px}
+.story-card{bottom:91px;height:160px;padding:32px 35px 24px;font-size:22px;line-height:1.3}
+.has-choices .story-card{bottom:168px;height:150px}
+.choices{bottom:5px;gap:0}
+.soft-button.choice{height:75px;width:320px;padding:16px 42px;font-size:21px}
+.question-panel{top:8px;height:280px;padding:71px 36px 20px}
+.question-panel p{font-size:23px;line-height:1.2}
+.question-panel .score{font-size:34px;margin:5px}
+.range-labels{font-size:13px;gap:3px;margin:0!important}
+.question-panel input{margin:0;height:30px}
+.rating-note{position:absolute;top:280px;max-width:310px;font-size:13px;line-height:1.3;margin:0}
+.try-again{position:absolute;bottom:86px;width:260px;height:65px;font-size:17px}
+.scene[data-scene=LOVE_REVEAL] .story-card{bottom:148px}
+.scene[data-scene=LOVE_REVEAL] .next{bottom:11px}
+.saved-date{position:absolute;top:116px;font-size:16px;max-width:320px;line-height:1.3}
+.calendar{top:53px;height:590px;padding-top:114px}
+.calendar-note{font-size:13px;max-width:260px}
+.save-error{font-size:13px;line-height:1.2;color:#8d3044;margin:4px 0}
+.calendar .back{margin-top:5px}
+.scene[data-scene=DATE_SELECTION] h2{font-size:28px;margin-top:9px}
+.scene[data-scene=FINAL] .story-card{font-size:23px}
+.story-card{padding-left:65px;padding-right:65px}
+.has-choices .story-card{bottom:91px;height:160px}
+.choices{bottom:15px;flex-direction:row;gap:8px;justify-content:center}
+.soft-button.choice{width:196px;height:59px;padding:13px 27px;font-size:19px}
+.try-again{bottom:15px;left:0;width:240px;height:64px;padding:13px 30px}
+.scene[data-scene=LOVE_REVEAL] .story-card{bottom:91px}
+.scene[data-scene=LOVE_REVEAL] .next{bottom:15px;right:0;width:145px}
+.rating-note{top:auto;bottom:97px;max-width:340px;font-size:14px;line-height:1.2}
+.range-labels{font-size:14px}
+.calendar-note{font-size:15px;line-height:1.2}
+.save-error{position:absolute;left:24px;right:24px;bottom:-14px;max-width:none;margin:0;font-size:15px;line-height:1.25}

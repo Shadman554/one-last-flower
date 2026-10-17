@@ -1,0 +1,15 @@
+node_modules/
+data/*.sqlite*
+*.zip
+*.log
+.git/
+.github/
+.gemini/
+qa/
+tests/
+tools/
+*.png
+!assets/**/*.png
+*.md
+!README.md
+!DEPLOYMENT.md

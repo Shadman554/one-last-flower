@@ -1,0 +1,22 @@
+services:
+  game:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: one-last-flower:latest
+    container_name: one-last-flower
+    restart: unless-stopped
+    ports:
+      - "${PORT:-4173}:4173"
+    environment:
+      - PORT=4173
+      - HOST=0.0.0.0
+      - NODE_ENV=production
+      - ADMIN_KEY=${ADMIN_KEY:-love}
+      - GAME_DB_PATH=/app/data/meeting-dates.sqlite
+    volumes:
+      - flower_data:/app/data
+
+volumes:
+  flower_data:
+    name: one_last_flower_data

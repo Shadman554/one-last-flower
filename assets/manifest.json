@@ -1,0 +1,1744 @@
+{
+  "animations": {
+    "idle": [
+      "assets/idle-0.png",
+      "assets/idle-1.png",
+      "assets/idle-2.png",
+      "assets/idle-3.png",
+      "assets/idle-4.png",
+      "assets/idle-5.png",
+      "assets/idle-6.png",
+      "assets/idle-7.png"
+    ],
+    "walk": [
+      "assets/walk-0.png",
+      "assets/walk-1.png",
+      "assets/walk-2.png",
+      "assets/walk-3.png",
+      "assets/walk-4.png",
+      "assets/walk-5.png",
+      "assets/walk-6.png",
+      "assets/walk-7.png"
+    ],
+    "walk-guide": [
+      "assets/walk-guide-0.png",
+      "assets/walk-guide-1.png",
+      "assets/walk-guide-2.png",
+      "assets/walk-guide-3.png",
+      "assets/walk-guide-4.png",
+      "assets/walk-guide-5.png",
+      "assets/walk-guide-6.png",
+      "assets/walk-guide-7.png"
+    ],
+    "jump": [
+      "assets/jump-0.png",
+      "assets/jump-1.png",
+      "assets/jump-2.png",
+      "assets/jump-3.png",
+      "assets/jump-4.png",
+      "assets/jump-5.png"
+    ],
+    "recover": [
+      "assets/recover-0.png",
+      "assets/recover-1.png",
+      "assets/recover-2.png",
+      "assets/recover-3.png",
+      "assets/recover-4.png",
+      "assets/recover-5.png",
+      "assets/recover-6.png",
+      "assets/recover-7.png"
+    ],
+    "pick": [
+      "assets/pick-0.png",
+      "assets/pick-1.png",
+      "assets/pick-2.png",
+      "assets/pick-3.png",
+      "assets/pick-4.png",
+      "assets/pick-5.png"
+    ],
+    "present": [
+      "assets/present-0.png",
+      "assets/present-1.png",
+      "assets/present-2.png",
+      "assets/present-3.png",
+      "assets/present-4.png",
+      "assets/present-5.png",
+      "assets/present-6.png",
+      "assets/present-7.png"
+    ],
+    "sparkle": [
+      "assets/sparkle-0.png",
+      "assets/sparkle-1.png",
+      "assets/sparkle-2.png",
+      "assets/sparkle-3.png",
+      "assets/sparkle-4.png",
+      "assets/sparkle-5.png",
+      "assets/sparkle-6.png",
+      "assets/sparkle-7.png"
+    ],
+    "glow": [
+      "assets/glow-0.png",
+      "assets/glow-1.png",
+      "assets/glow-2.png",
+      "assets/glow-3.png",
+      "assets/glow-4.png",
+      "assets/glow-5.png",
+      "assets/glow-6.png",
+      "assets/glow-7.png"
+    ],
+    "dust": [
+      "assets/dust-0.png",
+      "assets/dust-1.png",
+      "assets/dust-2.png",
+      "assets/dust-3.png",
+      "assets/dust-4.png",
+      "assets/dust-5.png"
+    ],
+    "hearts": [
+      "assets/hearts-0.png",
+      "assets/hearts-1.png",
+      "assets/hearts-2.png",
+      "assets/hearts-3.png",
+      "assets/hearts-4.png",
+      "assets/hearts-5.png",
+      "assets/hearts-6.png",
+      "assets/hearts-7.png"
+    ],
+    "celebrate": [
+      "assets/celebrate-0.png",
+      "assets/celebrate-1.png",
+      "assets/celebrate-2.png",
+      "assets/celebrate-3.png",
+      "assets/celebrate-4.png",
+      "assets/celebrate-5.png",
+      "assets/celebrate-6.png",
+      "assets/celebrate-7.png"
+    ],
+    "cry": [
+      "assets/cry-0.png",
+      "assets/cry-1.png",
+      "assets/cry-2.png",
+      "assets/cry-3.png",
+      "assets/cry-4.png",
+      "assets/cry-5.png",
+      "assets/cry-6.png",
+      "assets/cry-7.png"
+    ],
+    "wave": [
+      "assets/wave-0.png",
+      "assets/wave-1.png",
+      "assets/wave-2.png",
+      "assets/wave-3.png",
+      "assets/wave-4.png",
+      "assets/wave-5.png"
+    ],
+    "happy": [
+      "assets/happy-0.png",
+      "assets/happy-1.png",
+      "assets/happy-2.png",
+      "assets/happy-3.png",
+      "assets/happy-4.png",
+      "assets/happy-5.png",
+      "assets/happy-6.png",
+      "assets/happy-7.png"
+    ],
+    "plead": [
+      "assets/plead-0.png",
+      "assets/plead-1.png",
+      "assets/plead-2.png",
+      "assets/plead-3.png",
+      "assets/plead-4.png",
+      "assets/plead-5.png",
+      "assets/plead-6.png",
+      "assets/plead-7.png"
+    ],
+    "pout": [
+      "assets/pout-0.png",
+      "assets/pout-1.png",
+      "assets/pout-2.png",
+      "assets/pout-3.png",
+      "assets/pout-4.png",
+      "assets/pout-5.png",
+      "assets/pout-6.png",
+      "assets/pout-7.png"
+    ],
+    "sad": [
+      "assets/sad-0.png",
+      "assets/sad-1.png",
+      "assets/sad-2.png",
+      "assets/sad-3.png",
+      "assets/sad-4.png",
+      "assets/sad-5.png",
+      "assets/sad-6.png",
+      "assets/sad-7.png"
+    ],
+    "shocked": [
+      "assets/shocked-0.png",
+      "assets/shocked-1.png",
+      "assets/shocked-2.png",
+      "assets/shocked-3.png",
+      "assets/shocked-4.png",
+      "assets/shocked-5.png"
+    ],
+    "shy": [
+      "assets/shy-0.png",
+      "assets/shy-1.png",
+      "assets/shy-2.png",
+      "assets/shy-3.png",
+      "assets/shy-4.png",
+      "assets/shy-5.png"
+    ],
+    "think": [
+      "assets/think-0.png",
+      "assets/think-1.png",
+      "assets/think-2.png",
+      "assets/think-3.png",
+      "assets/think-4.png",
+      "assets/think-5.png",
+      "assets/think-6.png",
+      "assets/think-7.png"
+    ],
+    "turn": [
+      "assets/turn-0.png",
+      "assets/turn-1.png",
+      "assets/turn-2.png",
+      "assets/turn-3.png",
+      "assets/turn-4.png",
+      "assets/turn-5.png"
+    ],
+    "butterfly1": [
+      "assets/butterfly1-0.png",
+      "assets/butterfly1-1.png",
+      "assets/butterfly1-2.png",
+      "assets/butterfly1-3.png",
+      "assets/butterfly1-4.png",
+      "assets/butterfly1-5.png",
+      "assets/butterfly1-6.png",
+      "assets/butterfly1-7.png"
+    ],
+    "butterfly2": [
+      "assets/butterfly2-0.png",
+      "assets/butterfly2-1.png",
+      "assets/butterfly2-2.png",
+      "assets/butterfly2-3.png",
+      "assets/butterfly2-4.png",
+      "assets/butterfly2-5.png",
+      "assets/butterfly2-6.png",
+      "assets/butterfly2-7.png"
+    ],
+    "butterfly3": [
+      "assets/butterfly3-0.png",
+      "assets/butterfly3-1.png",
+      "assets/butterfly3-2.png",
+      "assets/butterfly3-3.png",
+      "assets/butterfly3-4.png",
+      "assets/butterfly3-5.png"
+    ],
+    "butterfly4": [
+      "assets/butterfly4-0.png",
+      "assets/butterfly4-1.png",
+      "assets/butterfly4-2.png",
+      "assets/butterfly4-3.png",
+      "assets/butterfly4-4.png",
+      "assets/butterfly4-5.png",
+      "assets/butterfly4-6.png",
+      "assets/butterfly4-7.png"
+    ]
+  },
+  "images": {
+    "flower": "assets/flower.png",
+    "special": "assets/special.png",
+    "bouquet": "assets/bouquet.png",
+    "left": "assets/left.png",
+    "right": "assets/right.png",
+    "jump-button": "assets/jump-button.png",
+    "cliff": "assets/cliff.png",
+    "card": "assets/card.png",
+    "music": "assets/music.png",
+    "mute": "assets/mute.png",
+    "pause": "assets/pause.png",
+    "start": "assets/start.png",
+    "next": "assets/next.png",
+    "counter": "assets/counter.png",
+    "garden": "assets/garden.png",
+    "ending": "assets/ending.png",
+    "ground": "assets/ground.png",
+    "choice": "assets/choice.png",
+    "choice-alt": "assets/choice-alt.png",
+    "ui-heart": "assets/ui/heart.png",
+    "ui-petal": "assets/ui/petal.png",
+    "ui-sparkle": "assets/ui/sparkle.png",
+    "ui-shadow": "assets/ui/shadow.png",
+    "garden-hunt": "assets/garden-hunt.png",
+    "garden-cliff": "assets/garden-cliff.png",
+    "flower-one": "assets/flower-one.png",
+    "flower-two": "assets/flower-two.png",
+    "flower-three": "assets/flower-three.png"
+  },
+  "sources": [
+    {
+      "file": "Hedgehog Idle Breathing Sprite Sheet.png",
+      "use": "idle",
+      "frames": 8,
+      "detected_crops": [
+        [
+          58,
+          137,
+          361,
+          485
+        ],
+        [
+          404,
+          137,
+          710,
+          485
+        ],
+        [
+          750,
+          137,
+          1055,
+          485
+        ],
+        [
+          1095,
+          137,
+          1391,
+          485
+        ],
+        [
+          60,
+          577,
+          362,
+          921
+        ],
+        [
+          404,
+          577,
+          711,
+          921
+        ],
+        [
+          751,
+          577,
+          1056,
+          921
+        ],
+        [
+          1095,
+          577,
+          1391,
+          921
+        ]
+      ]
+    },
+    {
+      "file": "Hedgehog Walking Sprite Sheet.png",
+      "use": "walk",
+      "frames": 8,
+      "detected_crops": [
+        [
+          62,
+          157,
+          358,
+          472
+        ],
+        [
+          403,
+          157,
+          703,
+          472
+        ],
+        [
+          747,
+          157,
+          1047,
+          472
+        ],
+        [
+          1091,
+          157,
+          1388,
+          472
+        ],
+        [
+          62,
+          600,
+          358,
+          916
+        ],
+        [
+          403,
+          600,
+          703,
+          916
+        ],
+        [
+          747,
+          600,
+          1047,
+          916
+        ],
+        [
+          1091,
+          600,
+          1388,
+          916
+        ]
+      ]
+    },
+    {
+      "file": "Hedgehog Walking Animation Guide.png",
+      "use": "walk-guide",
+      "frames": 8,
+      "detected_crops": [
+        [
+          60,
+          140,
+          357,
+          474
+        ],
+        [
+          402,
+          140,
+          705,
+          474
+        ],
+        [
+          745,
+          140,
+          1045,
+          474
+        ],
+        [
+          1089,
+          140,
+          1388,
+          474
+        ],
+        [
+          64,
+          587,
+          358,
+          924
+        ],
+        [
+          402,
+          587,
+          705,
+          924
+        ],
+        [
+          745,
+          587,
+          1046,
+          924
+        ],
+        [
+          1090,
+          587,
+          1388,
+          924
+        ]
+      ]
+    },
+    {
+      "file": "Hedgehog Jumping Sprite Sheet.png",
+      "use": "jump",
+      "frames": 6,
+      "detected_crops": [
+        [
+          76,
+          144,
+          480,
+          496
+        ],
+        [
+          523,
+          144,
+          927,
+          496
+        ],
+        [
+          970,
+          144,
+          1374,
+          496
+        ],
+        [
+          76,
+          588,
+          480,
+          955
+        ],
+        [
+          523,
+          588,
+          927,
+          955
+        ],
+        [
+          970,
+          588,
+          1374,
+          955
+        ]
+      ]
+    },
+    {
+      "file": "Hedgehog Falling and Rising Sprite Sheet.png",
+      "use": "recover",
+      "frames": 8,
+      "detected_crops": [
+        [
+          48,
+          153,
+          365,
+          494
+        ],
+        [
+          400,
+          153,
+          706,
+          494
+        ],
+        [
+          741,
+          153,
+          1049,
+          494
+        ],
+        [
+          1084,
+          153,
+          1401,
+          494
+        ],
+        [
+          49,
+          603,
+          367,
+          926
+        ],
+        [
+          403,
+          603,
+          708,
+          926
+        ],
+        [
+          743,
+          603,
+          1049,
+          926
+        ],
+        [
+          1084,
+          603,
+          1400,
+          926
+        ]
+      ]
+    },
+    {
+      "file": "Hedgehog\u2019s Flower-Picking Adventure.png",
+      "use": "pick",
+      "frames": 6,
+      "detected_crops": [
+        [
+          60,
+          138,
+          474,
+          473
+        ],
+        [
+          518,
+          138,
+          932,
+          473
+        ],
+        [
+          976,
+          138,
+          1389,
+          473
+        ],
+        [
+          60,
+          578,
+          471,
+          931
+        ],
+        [
+          516,
+          578,
+          932,
+          931
+        ],
+        [
+          977,
+          578,
+          1389,
+          931
+        ]
+      ]
+    },
+    {
+      "file": "Kawaii Hedgehog Bouquet Presentation Comic.png",
+      "use": "present",
+      "frames": 8,
+      "detected_crops": [
+        [
+          50,
+          144,
+          358,
+          487
+        ],
+        [
+          399,
+          144,
+          704,
+          487
+        ],
+        [
+          744,
+          144,
+          1050,
+          487
+        ],
+        [
+          1090,
+          144,
+          1398,
+          487
+        ],
+        [
+          51,
+          580,
+          358,
+          923
+        ],
+        [
+          399,
+          580,
+          704,
+          923
+        ],
+        [
+          744,
+          580,
+          1050,
+          923
+        ],
+        [
+          1090,
+          580,
+          1398,
+          923
+        ]
+      ]
+    },
+    {
+      "file": "Flower Collection Sparkle Animation Sheet.png",
+      "use": "sparkle",
+      "frames": 8,
+      "detected_crops": [
+        [
+          54,
+          167,
+          358,
+          505
+        ],
+        [
+          400,
+          167,
+          704,
+          505
+        ],
+        [
+          746,
+          167,
+          1051,
+          505
+        ],
+        [
+          1091,
+          167,
+          1395,
+          505
+        ],
+        [
+          54,
+          596,
+          358,
+          936
+        ],
+        [
+          400,
+          596,
+          705,
+          936
+        ],
+        [
+          747,
+          596,
+          1051,
+          936
+        ],
+        [
+          1091,
+          596,
+          1394,
+          936
+        ]
+      ]
+    },
+    {
+      "file": "Special Flower Glow Sprite Sheet.png",
+      "use": "glow",
+      "frames": 8,
+      "detected_crops": [
+        [
+          58,
+          136,
+          360,
+          485
+        ],
+        [
+          402,
+          136,
+          709,
+          485
+        ],
+        [
+          749,
+          136,
+          1054,
+          485
+        ],
+        [
+          1093,
+          136,
+          1392,
+          485
+        ],
+        [
+          58,
+          577,
+          362,
+          934
+        ],
+        [
+          404,
+          577,
+          710,
+          934
+        ],
+        [
+          750,
+          577,
+          1055,
+          934
+        ],
+        [
+          1094,
+          577,
+          1392,
+          934
+        ]
+      ]
+    },
+    {
+      "file": "Soft Landing Dust Animation Sheet.png",
+      "use": "dust",
+      "frames": 6,
+      "detected_crops": [
+        [
+          75,
+          143,
+          480,
+          496
+        ],
+        [
+          523,
+          143,
+          926,
+          496
+        ],
+        [
+          969,
+          143,
+          1373,
+          496
+        ],
+        [
+          75,
+          588,
+          480,
+          955
+        ],
+        [
+          523,
+          588,
+          926,
+          955
+        ],
+        [
+          968,
+          588,
+          1373,
+          955
+        ]
+      ]
+    },
+    {
+      "file": "Floating Hearts Animation Sheet.png",
+      "use": "hearts",
+      "frames": 8,
+      "detected_crops": [
+        [
+          50,
+          143,
+          362,
+          499
+        ],
+        [
+          396,
+          143,
+          709,
+          499
+        ],
+        [
+          743,
+          143,
+          1057,
+          499
+        ],
+        [
+          1090,
+          143,
+          1403,
+          499
+        ],
+        [
+          50,
+          591,
+          362,
+          956
+        ],
+        [
+          396,
+          591,
+          710,
+          956
+        ],
+        [
+          744,
+          591,
+          1057,
+          956
+        ],
+        [
+          1090,
+          591,
+          1402,
+          956
+        ]
+      ]
+    },
+    {
+      "file": "Celebration Effect Sprite Sheet.png",
+      "use": "celebrate",
+      "frames": 8,
+      "detected_crops": [
+        [
+          49,
+          142,
+          359,
+          502
+        ],
+        [
+          393,
+          142,
+          707,
+          502
+        ],
+        [
+          741,
+          142,
+          1055,
+          502
+        ],
+        [
+          1087,
+          142,
+          1401,
+          502
+        ],
+        [
+          50,
+          595,
+          360,
+          959
+        ],
+        [
+          393,
+          595,
+          709,
+          959
+        ],
+        [
+          742,
+          595,
+          1055,
+          959
+        ],
+        [
+          1088,
+          595,
+          1401,
+          959
+        ]
+      ]
+    },
+    {
+      "file": "Kawaii Pink Flower Sticker.png",
+      "use": "flower"
+    },
+    {
+      "file": "Glossy Kawaii Pink Flower Asset.png",
+      "use": "special"
+    },
+    {
+      "file": "Kawaii Pink Flower Bouquet Sticker.png",
+      "use": "bouquet"
+    },
+    {
+      "file": "Left movement button.png",
+      "use": "left"
+    },
+    {
+      "file": "Right movement button.png",
+      "use": "right"
+    },
+    {
+      "file": "Jump button.png",
+      "use": "jump-button"
+    },
+    {
+      "file": "Raised grassy cliffplatform \u2014 separate transparent.png",
+      "use": "cliff"
+    },
+    {
+      "file": "Romantic message card.png",
+      "use": "card"
+    },
+    {
+      "file": "Music buttons (reuse existing ones if available).png",
+      "use": "music"
+    },
+    {
+      "file": "mute buttons (reuse existing ones if available).png",
+      "use": "mute"
+    },
+    {
+      "file": "Pause and Resume button.png",
+      "use": "pause"
+    },
+    {
+      "file": "start button.png",
+      "use": "start"
+    },
+    {
+      "file": "next button .png",
+      "use": "next"
+    },
+    {
+      "file": "Flower counter background (numbers rendered in code).png",
+      "use": "counter"
+    },
+    {
+      "file": "Garden background without characters, text, or UI.png",
+      "use": "garden"
+    },
+    {
+      "file": "Romantic ending background without characters or UI.png",
+      "use": "ending"
+    },
+    {
+      "file": "Ground platform tiles for walking and jumping.png",
+      "use": "ground; original full sheet retained"
+    },
+    {
+      "file": "Meeting choice buttons .png",
+      "use": "Original lettering preserved as typography reference; new captions are on a separate blank PNG."
+    },
+    {
+      "file": "game style example 1.png",
+      "use": "composition reference only"
+    },
+    {
+      "file": "game style example 2.png",
+      "use": "composition reference only"
+    },
+    {
+      "file": "game style example 3.png",
+      "use": "composition reference only"
+    },
+    {
+      "file": "game style example 4.png",
+      "use": "composition reference only"
+    },
+    {
+      "file": "game style example 5.png",
+      "use": "composition reference only"
+    },
+    {
+      "file": "hadgehog crying.png",
+      "use": "cry",
+      "frames": 8,
+      "detected_crops": [
+        [
+          58,
+          140,
+          366,
+          493
+        ],
+        [
+          405,
+          140,
+          706,
+          493
+        ],
+        [
+          744,
+          140,
+          1046,
+          493
+        ],
+        [
+          1085,
+          140,
+          1390,
+          493
+        ],
+        [
+          60,
+          590,
+          369,
+          945
+        ],
+        [
+          409,
+          590,
+          706,
+          945
+        ],
+        [
+          745,
+          590,
+          1046,
+          945
+        ],
+        [
+          1084,
+          590,
+          1391,
+          945
+        ]
+      ]
+    },
+    {
+      "file": "Hadgehog goodbye waving.png",
+      "use": "wave",
+      "frames": 6,
+      "detected_crops": [
+        [
+          57,
+          140,
+          475,
+          499
+        ],
+        [
+          518,
+          140,
+          935,
+          499
+        ],
+        [
+          975,
+          140,
+          1391,
+          499
+        ],
+        [
+          58,
+          595,
+          477,
+          960
+        ],
+        [
+          518,
+          595,
+          936,
+          960
+        ],
+        [
+          975,
+          595,
+          1392,
+          960
+        ]
+      ]
+    },
+    {
+      "file": "hadgehog happy celebration.png",
+      "use": "happy",
+      "frames": 8,
+      "detected_crops": [
+        [
+          56,
+          140,
+          363,
+          485
+        ],
+        [
+          405,
+          140,
+          708,
+          485
+        ],
+        [
+          746,
+          140,
+          1051,
+          485
+        ],
+        [
+          1091,
+          140,
+          1393,
+          485
+        ],
+        [
+          57,
+          588,
+          363,
+          935
+        ],
+        [
+          405,
+          588,
+          708,
+          935
+        ],
+        [
+          746,
+          588,
+          1052,
+          935
+        ],
+        [
+          1091,
+          588,
+          1393,
+          935
+        ]
+      ]
+    },
+    {
+      "file": "hadgehog pleading.png",
+      "use": "plead",
+      "frames": 8,
+      "detected_crops": [
+        [
+          63,
+          137,
+          376,
+          486
+        ],
+        [
+          414,
+          137,
+          715,
+          486
+        ],
+        [
+          748,
+          137,
+          1046,
+          486
+        ],
+        [
+          1083,
+          137,
+          1390,
+          486
+        ],
+        [
+          63,
+          583,
+          376,
+          933
+        ],
+        [
+          414,
+          583,
+          715,
+          933
+        ],
+        [
+          749,
+          583,
+          1047,
+          933
+        ],
+        [
+          1083,
+          583,
+          1389,
+          933
+        ]
+      ]
+    },
+    {
+      "file": "hadgehog pouting.png",
+      "use": "pout",
+      "frames": 8,
+      "detected_crops": [
+        [
+          61,
+          139,
+          379,
+          489
+        ],
+        [
+          411,
+          139,
+          723,
+          489
+        ],
+        [
+          757,
+          139,
+          1058,
+          489
+        ],
+        [
+          1091,
+          139,
+          1390,
+          489
+        ],
+        [
+          60,
+          590,
+          379,
+          941
+        ],
+        [
+          410,
+          590,
+          723,
+          941
+        ],
+        [
+          756,
+          590,
+          1058,
+          941
+        ],
+        [
+          1091,
+          590,
+          1390,
+          941
+        ]
+      ]
+    },
+    {
+      "file": "hadgehog sad.png",
+      "use": "sad",
+      "frames": 8,
+      "detected_crops": [
+        [
+          61,
+          141,
+          374,
+          494
+        ],
+        [
+          408,
+          141,
+          709,
+          494
+        ],
+        [
+          742,
+          141,
+          1043,
+          494
+        ],
+        [
+          1077,
+          141,
+          1389,
+          494
+        ],
+        [
+          61,
+          596,
+          375,
+          944
+        ],
+        [
+          409,
+          596,
+          709,
+          944
+        ],
+        [
+          742,
+          596,
+          1043,
+          944
+        ],
+        [
+          1077,
+          596,
+          1389,
+          944
+        ]
+      ]
+    },
+    {
+      "file": "hadgehog shocked and dramatic.png",
+      "use": "shocked",
+      "frames": 6,
+      "detected_crops": [
+        [
+          58,
+          146,
+          471,
+          492
+        ],
+        [
+          511,
+          146,
+          939,
+          492
+        ],
+        [
+          977,
+          146,
+          1390,
+          492
+        ],
+        [
+          60,
+          586,
+          473,
+          939
+        ],
+        [
+          511,
+          586,
+          938,
+          939
+        ],
+        [
+          976,
+          586,
+          1389,
+          939
+        ]
+      ]
+    },
+    {
+      "file": "hadgehog shy and nervous.png",
+      "use": "shy",
+      "frames": 6,
+      "detected_crops": [
+        [
+          56,
+          135,
+          480,
+          489
+        ],
+        [
+          523,
+          135,
+          940,
+          489
+        ],
+        [
+          982,
+          135,
+          1395,
+          489
+        ],
+        [
+          57,
+          594,
+          479,
+          954
+        ],
+        [
+          522,
+          594,
+          940,
+          954
+        ],
+        [
+          982,
+          594,
+          1395,
+          954
+        ]
+      ]
+    },
+    {
+      "file": "hadgehog thinking.png",
+      "use": "think",
+      "frames": 8,
+      "detected_crops": [
+        [
+          57,
+          142,
+          368,
+          489
+        ],
+        [
+          403,
+          142,
+          710,
+          489
+        ],
+        [
+          744,
+          142,
+          1050,
+          489
+        ],
+        [
+          1084,
+          142,
+          1391,
+          489
+        ],
+        [
+          59,
+          590,
+          371,
+          944
+        ],
+        [
+          406,
+          590,
+          712,
+          944
+        ],
+        [
+          746,
+          590,
+          1051,
+          944
+        ],
+        [
+          1086,
+          590,
+          1393,
+          944
+        ]
+      ]
+    },
+    {
+      "file": "hadgehog turning toward player.png",
+      "use": "turn",
+      "frames": 6,
+      "detected_crops": [
+        [
+          63,
+          140,
+          473,
+          492
+        ],
+        [
+          515,
+          140,
+          927,
+          492
+        ],
+        [
+          970,
+          140,
+          1382,
+          492
+        ],
+        [
+          63,
+          597,
+          473,
+          947
+        ],
+        [
+          516,
+          597,
+          928,
+          947
+        ],
+        [
+          970,
+          597,
+          1383,
+          947
+        ]
+      ]
+    },
+    {
+      "file": "butterfly 1.png",
+      "use": "butterfly1",
+      "frames": 8,
+      "detected_crops": [
+        [
+          0,
+          100,
+          362,
+          470
+        ],
+        [
+          362,
+          100,
+          724,
+          470
+        ],
+        [
+          724,
+          100,
+          1086,
+          470
+        ],
+        [
+          1086,
+          100,
+          1448,
+          470
+        ],
+        [
+          0,
+          560,
+          362,
+          875
+        ],
+        [
+          362,
+          560,
+          724,
+          875
+        ],
+        [
+          724,
+          560,
+          1086,
+          875
+        ],
+        [
+          1086,
+          560,
+          1448,
+          875
+        ]
+      ]
+    },
+    {
+      "file": "butterfly 2.png",
+      "use": "butterfly2",
+      "frames": 8,
+      "detected_crops": [
+        [
+          0,
+          100,
+          362,
+          470
+        ],
+        [
+          362,
+          100,
+          724,
+          470
+        ],
+        [
+          724,
+          100,
+          1086,
+          470
+        ],
+        [
+          1086,
+          100,
+          1448,
+          470
+        ],
+        [
+          0,
+          560,
+          362,
+          875
+        ],
+        [
+          362,
+          560,
+          724,
+          875
+        ],
+        [
+          724,
+          560,
+          1086,
+          875
+        ],
+        [
+          1086,
+          560,
+          1448,
+          875
+        ]
+      ]
+    },
+    {
+      "file": "butterfly 3.png",
+      "use": "butterfly3",
+      "frames": 6,
+      "detected_crops": [
+        [
+          0,
+          95,
+          483,
+          490
+        ],
+        [
+          483,
+          95,
+          965,
+          490
+        ],
+        [
+          965,
+          95,
+          1448,
+          490
+        ],
+        [
+          0,
+          650,
+          483,
+          954
+        ],
+        [
+          483,
+          650,
+          965,
+          954
+        ],
+        [
+          965,
+          650,
+          1448,
+          954
+        ]
+      ]
+    },
+    {
+      "file": "butterfly 4.png",
+      "use": "butterfly4",
+      "frames": 8,
+      "detected_crops": [
+        [
+          0,
+          100,
+          362,
+          470
+        ],
+        [
+          362,
+          100,
+          724,
+          470
+        ],
+        [
+          724,
+          100,
+          1086,
+          470
+        ],
+        [
+          1086,
+          100,
+          1448,
+          470
+        ],
+        [
+          0,
+          560,
+          362,
+          875
+        ],
+        [
+          362,
+          560,
+          724,
+          875
+        ],
+        [
+          724,
+          560,
+          1086,
+          875
+        ],
+        [
+          1086,
+          560,
+          1448,
+          875
+        ]
+      ]
+    },
+    {
+      "file": "empty background1  .png",
+      "use": "garden-hunt"
+    },
+    {
+      "file": "empty background2.png",
+      "use": "garden-cliff"
+    },
+    {
+      "file": "flower 1 .png",
+      "use": "flower-one"
+    },
+    {
+      "file": "flower 2.png",
+      "use": "flower-two"
+    },
+    {
+      "file": "flower 3.png",
+      "use": "flower-three"
+    }
+  ],
+  "visual_correction": {
+    "generated_pngs": [
+      "assets/ui/blank-button.png",
+      "assets/ui/slider-rail.png",
+      "assets/ui/calendar-tile.png",
+      "assets/ui/landscape-panel.png",
+      "assets/ui/portrait-panel.png",
+      "assets/ui/slim-banner.png"
+    ],
+    "derived_from_originals": {
+      "heart": "Floating Hearts Animation Sheet.png, frame 2",
+      "petal": "Flower Collection Sparkle Animation Sheet.png, frame 4",
+      "sparkle": "Flower Collection Sparkle Animation Sheet.png, frame 4",
+      "shadow": "Hedgehog Jumping Sprite Sheet.png, frame 2"
+    },
+    "font": "Kalam Regular and Bold, SIL Open Font License 1.1; assets/fonts/kalam-OFL.txt",
+    "original_button_lettering": "Original Start and Next PNG lettering is used unchanged. Meeting choice PNG lettering is preserved as a reference. New Choose a day / Not yet labels use a separate blank PNG shell."
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "scenes": "Three complete actual-input playthroughs",
+  "ratings": [
+    "10/10",
+    "20/10",
+    "50/10",
+    "100/10",
+    "1000/10",
+    "∞"
+  ],
+  "posts": 2,
+  "confirmedRows": 1,
+  "pageErrors": [],
+  "checks": [
+    "Movement and both jumps",
+    "Pause and resume",
+    "All dialogue lines",
+    "All rating reactions",
+    "Minimum rating joke",
+    "Yes and No",
+    "Skip question",
+    "Not yet",
+    "Future calendar",
+    "Failed save and retry",
+    "Replay",
+    "Four viewport sizes"
+  ]
+}

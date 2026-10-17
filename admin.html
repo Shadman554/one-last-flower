@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7eee2">
+  <title>Admin Dashboard · One Last Flower 🌸</title>
+  <link rel="icon" href="assets/flower.png">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <div class="admin-container">
+    <header class="admin-header">
+      <div class="header-branding">
+        <img src="assets/flower.png" alt="Flower" class="header-logo" width="38" height="44">
+        <div>
+          <h1>One Last Flower</h1>
+          <p class="subtitle">Admin & Player Insights Dashboard</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <a href="/" target="_blank" class="nav-btn">🎮 Play Game</a>
+        <button id="logout-btn" class="nav-btn secondary" hidden>🔒 Lock</button>
+      </div>
+    </header>
+
+    <!-- Key Prompt Modal/Card -->
+    <div id="auth-panel" class="auth-card">
+      <div class="auth-box">
+        <img src="assets/ui/heart.png" alt="Heart" width="40" height="37">
+        <h2>Admin Authentication</h2>
+        <p>Enter your secret admin key to view saved player answers, love ratings, and confirmed dates.</p>
+        <form id="auth-form" class="auth-form">
+          <input type="password" id="admin-key-input" placeholder="Admin Key (default: love)" autocomplete="current-password" required autofocus>
+          <button type="submit" class="primary-btn">Unlock Insights 🌸</button>
+        </form>
+        <p id="auth-error" class="error-msg" hidden></p>
+      </div>
+    </div>
+
+    <!-- Main Dashboard View -->
+    <main id="dashboard" class="dashboard-content" hidden>
+      <!-- Quick Stats KPI Cards -->
+      <section class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-icon">🦔</div>
+          <div class="kpi-info">
+            <span class="kpi-label">Total Players</span>
+            <span id="kpi-total" class="kpi-value">-</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon">🌸</div>
+          <div class="kpi-info">
+            <span class="kpi-label">Completed Story</span>
+            <span id="kpi-completed" class="kpi-value">-</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon">📅</div>
+          <div class="kpi-info">
+            <span class="kpi-label">Confirmed Dates</span>
+            <span id="kpi-dates" class="kpi-value">-</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon">❤️</div>
+          <div class="kpi-info">
+            <span class="kpi-label">Secret "Yes" Rate</span>
+            <span id="kpi-secret" class="kpi-value">-</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Confirmed Meeting Dates Highlight -->
+      <section class="section-card" id="meetings-section">
+        <div class="section-header">
+          <h2>📅 Confirmed Meeting Dates</h2>
+          <span class="badge highlight" id="confirmed-count-badge">0 saved</span>
+        </div>
+        <div id="confirmed-dates-list" class="dates-list">
+          <p class="empty-text">No confirmed meeting dates yet.</p>
+        </div>
+      </section>
+
+      <!-- Player Sessions & Choices -->
+      <section class="section-card">
+        <div class="section-header">
+          <h2>🦔 Player Sessions & Interactions</h2>
+          <div class="table-tools">
+            <button id="refresh-btn" class="tool-btn">🔄 Refresh</button>
+            <button id="export-csv-btn" class="tool-btn">📥 CSV</button>
+            <button id="export-json-btn" class="tool-btn">📥 JSON</button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Date / Time</th>
+                <th>Player Name</th>
+                <th>Love Rating</th>
+                <th>Secret Q</th>
+                <th>Meeting Choice</th>
+                <th>Confirmed Date</th>
+                <th>Flowers</th>
+                <th>Duration</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="players-table-body">
+              <tr>
+                <td colspan="10" class="empty-text">Loading player data...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer class="admin-footer">
+      <p>One Last Flower · Built with ❤️ · SQLite Persistent Database</p>
+    </footer>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
