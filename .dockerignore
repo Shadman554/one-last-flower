@@ -8,8 +8,8 @@ data/*.sqlite*
 qa/
 tests/
 tools/
-*.png
-!assets/**/*.png
+/*.png
+!assets/
 *.md
 !README.md
 !DEPLOYMENT.md
