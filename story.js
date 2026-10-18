@@ -12,11 +12,11 @@ export const LINES={
  BOUQUET_COMPLETE:["Okay okay, these are for you, my cute little mouse 🥹❤️"],
  ROMANTIC_MESSAGE:["I know it's just a small game...","But I wanted to make you smile."],
  RATING_INTRO:["But before u go, I have one question 😂"],
- AFTER_RATING:["Okay okay, enough of that 😂","But seriously...","I really miss you 😭❤️"],
+ AFTER_RATING:["Okay okay, enough of that 😂","But seriously...","I really miss you 😭❤️","I miss uuuuuuuuuuuuuuuuuuuuuu😭","why u dont understannnddddddd💔"],
  SECRET_QUESTION:["And umm...","Can I ask u ??? 🥹"],
  SECRET_YES:["Okay sooo... 🥹"],
  SECRET_NO:["NO??? 😭","Too late, I already asked 😂","Okay okay, one real question..."],
  DATE_CONFIRMATION:["WAIT REALLY??? 🥹❤️","You have NO idea how happy u just made me 😭","U MADE MY DAYYYYY ❤️","THANK YOUUUUUUU 😂❤️"],
  FLOWER_ENDING:["Okayyy, no worries.","The flowers are still yours ❤️"],
- FINAL:["That's all I wanted to say.","Byeeee 🦔❤️"]
+ FINAL:["That's all I wanted to say.","I love u, جرجە ❤️","Byeeeeeeee 🦔❤️"]
 };

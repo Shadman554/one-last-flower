@@ -3,7 +3,7 @@ export function dialoguePose(scene,line=0,rating=0){
  if(scene==='LOVE_REVEAL')return (line===0
   ?[['cry',1],['pout',0],['shy',4],['happy',0],['shocked',0],['happy',1]]
   :[['pout',4],['plead',3],['happy',0],['present',6],['shocked',4],['happy',1]])[rating];
- if(scene==='AFTER_RATING')return [['pout',4],['think',0],['plead',0]][line];
+ if(scene==='AFTER_RATING')return [['pout',4],['think',0],['plead',0],['cry',1],['pout',4]][line];
  if(scene==='SECRET_NO')return [['cry',1],['pout',4],['shy',1]][line];
  if(scene==='SECRET_YES')return ['happy',0];
  if(scene==='DATE_CONFIRMATION')return [['shocked',0],['happy',1],['happy',6],['present',6]][line];

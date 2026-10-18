@@ -130,7 +130,7 @@ function renderUI(){canvas.style.backgroundImage=`url("${images[specialScene()?'
  else if(sc==='DATE_SELECTION'){heading(box,'Okayyy, pick a day 🥹','');buildCalendar(box);}
  else if(sc==='DATE_CONFIRMATION'){dialogue(box,LINES[sc],'FINAL');box.append(el('p','saved-date',`Saved: ${formattedDate()}`));}
  else if(sc==='FLOWER_ENDING')dialogue(box,LINES[sc],'FINAL');
- else if(sc==='FINAL'){savePlayerProgress({completed:1});card(box,LINES.FINAL.map(line=>`<p>${line}</p>`).join(''));box.append(button('Play again',restart,'soft-button next'));}
+ else if(sc==='FINAL'){savePlayerProgress({completed:1});card(box,LINES.FINAL.map(line=>`<p>${line.replace("جرجە",'<bdi lang="ckb" dir="rtl">جرجە</bdi>')}</p>`).join(''));box.append(button('Play again',restart,'soft-button next'));}
 }
 function formattedDate(){return state.date?new Date(state.date+'T12:00:00').toLocaleDateString(undefined,{weekday:'long',year:'numeric',month:'long',day:'numeric'}):'';}
 function buildCalendar(box){
