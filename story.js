@@ -18,5 +18,5 @@ export const LINES={
  SECRET_NO:["NO??? 😭","Too late, I already asked 😂","Okay okay, one real question..."],
  DATE_CONFIRMATION:["WAIT REALLY??? 🥹❤️","You have NO idea how happy u just made me 😭","U MADE MY DAYYYYY ❤️","THANK YOUUUUUUU 😂❤️"],
  FLOWER_ENDING:["Okayyy, no worries.","The flowers are still yours ❤️"],
- FINAL:["That's all I wanted to say.","I love u, جرجە ❤️","Byeeeeeeee 🦔❤️"]
+ FINAL:["That's all I wanted to say.","I love u, ئەڵیی جرجی ❤️","Byeeeeeeee 🦔❤️"]
 };
