@@ -1,18 +1,23 @@
-import {W,H,GROUND,COLLECTION_WIDTH,FLOWERS,collectionPlatforms,carryOnPlatform,freshState,localDateKey,dateAllowed,physics} from './engine.js';
+﻿import {W,H,GROUND,COLLECTION_WIDTH,FLOWERS,collectionPlatforms,carryOnPlatform,freshState,localDateKey,dateAllowed,physics} from './engine.js';
 import {RATINGS,REACTIONS,LINES} from './story.js';
+import {createAssetLoader,stageForScene} from './asset-loader.js';
+import {dialoguePose,BUTTERFLIES,butterflyMotion} from './animation.js';
 const $=s=>document.querySelector(s),canvas=$('#canvas'),ctx=canvas.getContext('2d');
 function confirmationId(){
  if(crypto.randomUUID)return crypto.randomUUID();
  const bytes=crypto.getRandomValues(new Uint8Array(16));bytes[6]=(bytes[6]&15)|64;bytes[8]=(bytes[8]&63)|128;
  const hex=Array.from(bytes,b=>b.toString(16).padStart(2,'0')).join('');return `${hex.slice(0,8)}-${hex.slice(8,12)}-${hex.slice(12,16)}-${hex.slice(16,20)}-${hex.slice(20)}`;
 }
-let sessionId=localStorage.getItem('flower_session_id')||confirmationId();
-localStorage.setItem('flower_session_id',sessionId);
+// Storage may be disabled by the browser; the game can still use an in-memory session.
+const savedPreference=key=>{try{return localStorage.getItem(key);}catch{return null;}};
+const savePreference=(key,value)=>{try{localStorage.setItem(key,value);}catch{}};
+let sessionId=savedPreference('flower_session_id')||confirmationId();
+savePreference('flower_session_id',sessionId);
 let state=freshState(),images={},animations={},input={left:false,right:false},music=true,musicStarted=false,audio=null,master=null,transitioning=false,calendarMonth=new Date(new Date().getFullYear(),new Date().getMonth(),1),last=0,toastTime=0;
 async function savePlayerProgress(extra={}){
  const payload={
   sessionId,
-  playerName:state.playerName||localStorage.getItem('flower_player_name')||'Cute Little Mouse',
+  playerName:state.playerName||savedPreference('flower_player_name')||'Cute Little Mouse',
   flowersCollected:state.collected?state.collected.length:0,
   specialFlower:state.special?1:0,
   jumpAttempts:state.attempts||0,
@@ -20,7 +25,7 @@ async function savePlayerProgress(extra={}){
   loveRatingIndex:state.submittedRatingIndex??null,
   secretAnswer:state.secretAnswer||null,
   meetingChoice:state.meetingChoice||null,
-  meetingDate:state.savedDate||state.date||null,
+  meetingDate:state.savedDate||null,
   currentScene:state.scene,
   completed:(extra.completed||state.scene==='FINAL')?1:0,
   playTime:Math.round(state.time||0),
@@ -35,7 +40,7 @@ async function savePlayerProgress(extra={}){
  }catch(_){}
 }
 const backgroundMusic=new Audio('assets/audio/background-music.mp3');
-backgroundMusic.loop=true;backgroundMusic.preload='auto';backgroundMusic.volume=.45;
+backgroundMusic.loop=true;backgroundMusic.preload='none';backgroundMusic.volume=.45;
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const playScenes=['FLOWER_COLLECTION','SPECIAL_FLOWER','FIRST_FAILED_JUMP','SECOND_SUCCESSFUL_JUMP'];
 const isPlaying=()=>playScenes.includes(state.scene);
@@ -46,7 +51,7 @@ function illustratedText(html){return html.replace(/❤️|❤|♡|🌸/gu,glyph
 const el=(tag,cls,html='')=>{const n=document.createElement(tag);n.className=cls;n.innerHTML=illustratedText(html);return n;};
 function artButton(key,label,fn,cls=''){const b=el('button',`art-button ${cls}`,`<img src="assets/${key}.png" alt="${label}">`);b.setAttribute('aria-label',label);b.onclick=fn;return b;}
 function button(label,fn,cls='soft-button'){const b=el('button',cls,label);b.setAttribute('aria-label',label.replace(/<[^>]*>/g,''));b.onclick=fn;return b;}
-function resize(){const vv=window.visualViewport;const bodyStyle=getComputedStyle(document.body);const horizontalInset=parseFloat(bodyStyle.paddingLeft)+parseFloat(bodyStyle.paddingRight);const verticalInset=parseFloat(bodyStyle.paddingTop)+parseFloat(bodyStyle.paddingBottom);const scale=Math.min(((vv?.width||innerWidth)-horizontalInset)/450,((vv?.height||innerHeight)-verticalInset)/800,1.12);$('#frame').style.width=`${450*scale}px`;$('#frame').style.height=`${800*scale}px`;$('#game').style.transform=`scale(${scale})`;const dpr=Math.min(devicePixelRatio||1,2);canvas.width=450*dpr;canvas.height=800*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}
+function resize(){const vv=window.visualViewport;const bodyStyle=getComputedStyle(document.body);const horizontalInset=parseFloat(bodyStyle.paddingLeft)+parseFloat(bodyStyle.paddingRight);const verticalInset=parseFloat(bodyStyle.paddingTop)+parseFloat(bodyStyle.paddingBottom);const scale=Math.min(((vv?.width||innerWidth)-horizontalInset)/450,((vv?.height||innerHeight)-verticalInset)/800,1.12);$('#frame').style.width=`${450*scale}px`;$('#frame').style.height=`${800*scale}px`;$('#game').style.transform=`scale(${scale})`;const dpr=Math.min(devicePixelRatio||1,2);canvas.width=450*dpr;canvas.height=800*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);if(images['garden-hunt']&&animations.idle)draw();}
 addEventListener('resize',resize);window.visualViewport?.addEventListener('resize',resize);resize();
 
 function initAudio(){if(!audio){audio=new (window.AudioContext||window.webkitAudioContext)();master=audio.createGain();master.gain.value=music?.12:0;master.connect(audio.destination);}if(audio.state==='suspended')audio.resume();}
@@ -63,9 +68,9 @@ function clearInput(){input.left=input.right=false;document.querySelectorAll('.h
 function toolbar(){const bar=$('#toolbar');bar.replaceChildren();if(isPlaying()||state.bouquet)bar.append(el('div','counter',`${count()}/4`));const m=artButton(music?'music':'mute',music?'Mute music':'Enable music',()=>{initAudio();music=!music;syncMusic();toolbar();},'icon');m.setAttribute('aria-pressed',String(music));bar.append(m);if(isPlaying())bar.append(artButton('pause','Pause game',()=>pause(true),'icon'));}
 function pause(value){if(!isPlaying())return;state.paused=value;clearInput();const layer=$('#pause-layer');layer.hidden=!value;syncMusic();if(value){const panel=el('div','pause-card');panel.append(el('h2','','A little breather. ♡'),el('p','','Your flowers will be right here.'),button('Resume',()=>pause(false)),button('Start again',restart));layer.replaceChildren(panel);layer.querySelector('button').focus();}else {if(music)audio?.resume();$('#toolbar button:last-child')?.focus();}}
 addEventListener('blur',()=>{clearInput();if(isPlaying())pause(true);});document.addEventListener('visibilitychange',()=>{if(document.hidden){clearInput();if(isPlaying())pause(true);backgroundMusic.pause();audio?.suspend();savePlayerProgress();}else{if(audio&&music&&!state.paused)audio.resume();syncMusic();}});
-async function go(scene){if(transitioning)return;transitioning=true;clearInput();$('#fade').classList.add('active');await new Promise(r=>setTimeout(r,reduced?0:220));state.scene=scene;state.dialogueIndex=0;state.sceneTime=0;state.animTime=0;state.effects=[];state.lock=0;if(scene==='FLOWER_COLLECTION'){state.x=65;state.y=GROUND;state.vy=0;state.grounded=true;}if(scene==='SPECIAL_FLOWER'){state.x=140;state.y=GROUND;state.vy=0;state.grounded=true;}renderUI();$('#fade').classList.remove('active');transitioning=false;}
-function restart(){document.querySelector('.toast')?.remove();toastTime=0;state=freshState();sessionId=confirmationId();localStorage.setItem('flower_session_id',sessionId);calendarMonth=new Date(new Date().getFullYear(),new Date().getMonth(),1);clearInput();$('#pause-layer').hidden=true;musicStarted=false;backgroundMusic.pause();backgroundMusic.currentTime=0;syncMusic();renderUI();}
-function toast(text){document.querySelector('.toast')?.remove();$('#game').append(el('div','toast',text));toastTime=state.time+3;}
+async function go(scene){if(transitioning)return;transitioning=true;clearInput();$('#fade').classList.add('active');try{await Promise.all([new Promise(r=>setTimeout(r,reduced?0:220)),ensureSceneAssets(scene)]);}catch{transitioning=false;$('#fade').classList.remove('active');state.introLeaving=false;const nextButton=$('.next');if(nextButton)nextButton.disabled=false;toast('The next scene could not load. Please try again.');return;}state.scene=scene;state.dialogueIndex=0;state.sceneTime=0;state.animTime=0;state.effects=[];state.lock=0;if(scene==='FLOWER_COLLECTION'){state.x=65;state.y=GROUND;state.vy=0;state.grounded=true;}if(scene==='SPECIAL_FLOWER'){state.x=140;state.y=GROUND;state.vy=0;state.grounded=true;}renderUI();$('#fade').classList.remove('active');transitioning=false;warmNextScene(scene);}
+function restart(){document.querySelector('.toast')?.remove();toastTime=0;state=freshState();sessionId=confirmationId();savePreference('flower_session_id',sessionId);calendarMonth=new Date(new Date().getFullYear(),new Date().getMonth(),1);clearInput();$('#pause-layer').hidden=true;musicStarted=false;backgroundMusic.pause();backgroundMusic.currentTime=0;syncMusic();renderUI();}
+function toast(text){document.querySelector('.toast')?.remove();$('#game').append(el('div','toast',`<span>${text}</span>`));toastTime=state.time+3;}
 function heading(box,title,label='A little adventure, made with love'){box.append(el('p','eyebrow',label),el('h2','',title));}
 function card(box,text,cls='story-card'){const c=el('div',`card ${cls}`,`<div class="card-copy">${text}</div>`);box.append(c);return c;}
 function next(box,dest){box.append(artButton('next','Next',()=>go(dest),'next'));}
@@ -76,7 +81,7 @@ function dialogue(box,lines,dest,actions){
 }
 function choices(box,items){const row=el('div','choices');for(const [label,fn] of items)row.append(button(label,fn,'soft-button choice'));box.append(row);box.classList.add('has-choices');}
 function beginWalk(){if(state.introLeaving)return;state.introLeaving=true;state.sceneTime=0;$('.next').disabled=true;setTimeout(()=>{if(state.scene==='INTRO')go('FLOWER_COLLECTION');},1100);}
-function renderUI(){toolbar();$('#scene').replaceChildren();$('#controls').replaceChildren();const box=el('div','scene');$('#scene').append(box);const sc=state.scene;box.dataset.scene=sc;
+function renderUI(){canvas.style.backgroundImage=`url("${images[specialScene()?'garden-cliff':'garden-hunt'].src}")`;toolbar();$('#scene').replaceChildren();$('#controls').replaceChildren();const box=el('div','scene');$('#scene').append(box);const sc=state.scene;box.dataset.scene=sc;
  if(sc==='TITLE'){
   box.append(el('h1','','One Last Flower,<br>Just for You 🌸'));
   const bottom=el('div','title-bottom');
@@ -101,9 +106,9 @@ function renderUI(){toolbar();$('#scene').replaceChildren();$('#controls').repla
  else if(sc==='LOVE_RATING'){
   const panel=el('div','question-panel',`<p id="rating-question">How much do you think I love you?</p><output class="score" id="score">${RATINGS[state.rating]}</output><input aria-labelledby="rating-question" aria-valuetext="${RATINGS[state.rating]}" type="range" min="0" max="5" step="1" value="${state.rating}"><div class="range-labels">${RATINGS.map(r=>`<span>${r}</span>`).join('')}</div>`);
   const range=panel.querySelector('input');range.oninput=e=>{state.rating=Number(e.target.value);$('#score').value=RATINGS[state.rating];$('#score').textContent=RATINGS[state.rating];range.setAttribute('aria-valuetext',RATINGS[state.rating]);};
-  range.addEventListener('keydown',e=>{if(state.rating===0&&['ArrowLeft','ArrowDown','PageDown'].includes(e.key))toast('Nice try. Not happening 😂');});
-  let startX=0;range.addEventListener('pointerdown',e=>{startX=e.clientX;if(state.rating===0&&e.clientX<range.getBoundingClientRect().left+12)toast('Nice try. Not happening 😂');});range.addEventListener('pointermove',e=>{if(e.buttons&&state.rating===0&&e.clientX<startX-8)toast('Nice try. Not happening 😂');});
-  box.append(panel,el('p','rating-note','Your choice is saved with love ♡'));
+  range.addEventListener('keydown',e=>{if(state.rating===0&&['ArrowLeft','ArrowDown','PageDown'].includes(e.key))toast('Nice try. Not happening you cant reduce😂');});
+  let startX=0;range.addEventListener('pointerdown',e=>{startX=e.clientX;if(state.rating===0&&e.clientX<range.getBoundingClientRect().left+12)toast('Nice try. Not happening you cant reduce😂');});range.addEventListener('pointermove',e=>{if(e.buttons&&state.rating===0&&e.clientX<startX-8)toast('Nice try. Not happening you cant reduce😂');});
+  box.append(panel,el('p','rating-note','Your choice is important to me'));
   box.append(button('Submit answer',()=>{
    state.submittedRating=RATINGS[state.rating];
    state.submittedRatingIndex=state.rating;
@@ -113,7 +118,7 @@ function renderUI(){toolbar();$('#scene').replaceChildren();$('#controls').repla
   },'soft-button next'));
  }
  else if(sc==='LOVE_REVEAL'){
-  dialogue(box,REACTIONS[state.rating],'AFTER_RATING');box.append(button('Try another number 😂',()=>go('LOVE_RATING'),'soft-button try-again'));
+  dialogue(box,REACTIONS[state.rating],'AFTER_RATING');box.append(button('try another number',()=>go('LOVE_RATING'),'soft-button try-again'));
  }
  else if(sc==='AFTER_RATING')dialogue(box,LINES[sc],'SECRET_QUESTION');
  else if(sc==='SECRET_QUESTION')dialogue(box,LINES[sc],null,b=>choices(b,[['Yes ❤️',()=>{state.secretAnswer='Yes ❤️';savePlayerProgress();go('SECRET_YES');}],['No 😢',()=>{state.secretAnswer='No 😢';savePlayerProgress();go('SECRET_NO');}]]));
@@ -176,7 +181,7 @@ function update(dt){if(state.paused)return;state.time+=dt;state.sceneTime+=dt;st
  if(!wasGrounded&&landing&&wasVy>20){effect('dust',state.x,state.y,110);if(special&&state.scene==='FIRST_FAILED_JUMP'){state.failed=true;state.scene='SPECIAL_FLOWER';message('NOOOOOOO 😭');setAnim('recover');state.lock=8/9;}else{setAnim('jump');state.animTime=5/10;state.lock=.12;}}
  else if(!state.grounded){state.jumpAge=(state.jumpAge||0)+dt;setAnim('jump');state.animTime=Math.min(.49,state.jumpAge);}
  else setAnim(axis?'walk':'idle');
- if(!special){FLOWERS.forEach((f,i)=>{if(!state.collected.includes(i)&&Math.abs(state.x-f.x)<30&&Math.abs(state.y-f.y)<40){state.collected.push(i);setAnim('pick');state.lock=6/9;effect('sparkle',f.x,f.y-40);chime();toolbar();savePlayerProgress({flowersCollected:state.collected.length});if(count()===4){message("Okayyy, I need one more to finish my idea...");state.pendingSpecial=true;state.lock=1.5;}}});}
+ if(!special){FLOWERS.forEach((f,i)=>{if(!state.collected.includes(i)&&(count()<3||state.grounded)&&Math.abs(state.x-f.x)<30&&Math.abs(state.y-f.y)<40){state.collected.push(i);setAnim('pick');state.lock=6/9;effect('sparkle',f.x,f.y-40);chime();toolbar();savePlayerProgress({flowersCollected:state.collected.length});if(count()===4){message("Okayyy, I need one more to finish my idea...");state.pendingSpecial=true;state.lock=1.5;}}});}
  else if(state.scene==='SECOND_SUCCESSFUL_JUMP'&&state.grounded&&state.y===455&&state.x>=293&&!state.special){state.special=true;state.bouquet=true;state.pendingBouquet=true;state.lock=1.5;setAnim('pick');effect('sparkle',330,420,155);effect('hearts',state.x,390,190);effect('celebrate',state.x,390,210);message('YESSSSSSS! GOT IT 😂');chime();toolbar();savePlayerProgress({specialFlower:1,flowersCollected:4});}
 }
 function drawImage(im,x,y,w,h){if(!im)return;if(h===undefined)h=w*im.height/im.width;ctx.drawImage(im,x,y,w,h);}
@@ -188,20 +193,39 @@ const flowerBounds={
  'flower-three':{x:32,y:213,w:643,h:816}
 };
 function drawFlower(key,x,feet,height){const b=flowerBounds[key],width=height*b.w/b.h;ctx.drawImage(images[key],b.x,b.y,b.w,b.h,x-width/2,feet-height,width,height);}
-function sprite(name,t,x,feet,w=150,face=1,loop=true){
- const frames=animations[name],calm=name==='think'||name==='shy';
+function sprite(name,t,x,feet,w=150,face=1,loop=true,pose=null){
+ const frames=animations[name],calm=pose!==null||name==='think'||name==='shy';
  const fps={idle:6,walk:10,jump:10,recover:9,pick:9,present:8}[name]||12;
  // These sheets contain different expressions, not consecutive motion frames.
  // Hold the matching calm pose and breathe slowly, with feet anchored in place.
- const index=calm?1:loop?Math.floor(t*fps)%frames.length:Math.min(frames.length-1,Math.floor(t*fps));
+ const index=pose??(calm?1:loop?Math.floor(t*fps)%frames.length:Math.min(frames.length-1,Math.floor(t*fps)));
  if(calm&&!reduced)w*=1+.005*Math.sin(t*2*Math.PI/4.5);
  const h=w*320/360;ctx.save();ctx.translate(x,feet);const originalFacesLeft=name==='walk';ctx.scale((face===-1)!==originalFacesLeft?-1:1,1);drawImage(frames[index],-w/2,-h*290/320,w,h);ctx.restore();
 }
+function drawButterfly(kind){
+ const spec=BUTTERFLIES[kind],motion=butterflyMotion(state.time,kind,reduced),[ax,ay]=spec.anchors[motion.frame],[sx,sy,sw,sh]=spec.crop;
+ ctx.save();ctx.translate(motion.x,motion.y);ctx.rotate(motion.angle);ctx.scale(spec.scale,spec.scale);
+ ctx.drawImage(animations[spec.name][motion.frame],sx,sy,sw,sh,sx-ax,sy-ay,sw,sh);ctx.restore();
+}
+function gardenDetails(sc){
+ const celebrating=['DATE_CONFIRMATION','FINAL','BOUQUET_COMPLETE'].includes(sc);
+ drawButterfly(celebrating?'joyful':'flutter');
+ if(sc!=='DATE_SELECTION'&&sc!=='LOVE_RATING')drawButterfly('drifting');
+ // Existing petal PNGs drift at the garden edges, clear of dialogue and controls.
+ for(let i=0;i<4;i++){
+  const phase=reduced?(i+.5)/4:((state.time/16+i/4)%1);
+  const x=(i%2?411:29)+15*Math.sin(phase*Math.PI*2+i),y=225+phase*290;
+  ctx.save();ctx.globalAlpha=Math.sin(phase*Math.PI)*.55;ctx.translate(x,y);ctx.rotate(phase*2+i);drawImage(images['ui-petal'],-5,-4,10);ctx.restore();
+ }
+ if(['TITLE','FLOWER_ENDING','FINAL'].includes(sc)){
+  drawButterfly('resting');
+ }
+}
 function draw(){
  ctx.clearRect(0,0,W,H);const sc=state.scene,playing=isPlaying(),special=specialScene();
- drawImage(images[special?'garden-cliff':'garden-hunt'],0,0,450,800);
+ // The original background is a cached CSS image behind the transparent canvas.
  // All scenery, particles, flowers, shadows, and characters are supplied PNG artwork.
- if(!reduced){const f=animations.butterfly2[Math.floor(state.time*6)%8];drawImage(f,112+Math.sin(state.time*.4)*12,252+Math.sin(state.time*.7)*5,72,64);}
+ gardenDetails(sc);
  if(playing){
   const camera=special?0:Math.max(0,Math.min(COLLECTION_WIDTH-W,state.x-170));ctx.save();ctx.translate(-camera,special?-100:-120);
   if(special){if(!state.special){drawFlower('flower-three',332,457,112);const shimmer=reduced?1:.8+Math.sin(state.time*2)*.2;ctx.save();ctx.globalAlpha=shimmer;drawImage(images['ui-sparkle'],276,365,12);drawImage(images['ui-sparkle'],385,341,14);ctx.restore();}}
@@ -209,7 +233,7 @@ function draw(){
   drawImage(images['ui-shadow'],state.x-31,state.y-2,62);sprite(state.anim,state.animTime,state.x,state.y,175,state.facing,!['jump','recover','pick'].includes(state.anim));
   for(const e of state.effects)drawImage(animations[e.name][Math.min(animations[e.name].length-1,Math.floor(e.t*(e.name==='hearts'?9:12)))],e.x-e.size/2,e.y-e.size/2,e.size,e.size*320/360);ctx.restore();
  }else if(sc!=='DATE_SELECTION'){
-  let feet=515,width=240,name=state.bouquet?'present':'idle',t=state.time,loop=true,x=225;
+  let feet=515,width=240,name=state.bouquet?'present':'idle',t=state.time,loop=true,x=225,pose=null;
   if(sc==='TITLE'){width=270;feet=520;}
   if(sc==='INTRO'){name=state.introLeaving?(state.sceneTime<.65?'turn':'walk'):'think';t=state.sceneTime;x+=state.introLeaving?Math.max(0,state.sceneTime-.65)*40:0;}
   if(sc==='LOVE_RATING'){feet=546;width=190;}
@@ -218,22 +242,53 @@ function draw(){
   if(sc==='LOVE_REVEAL'){name=state.rating<2&&state.sceneTime<.6?'shocked':'present';}
   if(sc==='DATE_CONFIRMATION'){name=state.sceneTime<2.1?'happy':'present';t=state.sceneTime*.5;}
   if(sc==='FLOWER_ENDING')name='present';
-  if(sc==='FINAL'){name='wave';t=state.time*.4;}
+  if(sc==='FINAL'){name='wave';t=state.sceneTime*.18;}
   if(name==='present'){t=state.sceneTime<1?state.sceneTime:.75+(Math.floor((state.sceneTime-1)*2)%2)*.125;loop=false;}
   if(sc==='BOUQUET_COMPLETE'&&state.sceneTime<.55){name='turn';t=state.sceneTime;loop=false;}
   if(name==='turn')loop=false;
-  sprite(name,t,x,feet,width,1,loop);
+  const expression=dialoguePose(sc,state.dialogueIndex,state.rating);
+  if(expression){[name,pose]=expression;t=state.sceneTime;}
+  if(['DATE_CONFIRMATION','BOUQUET_COMPLETE'].includes(sc)&&state.sceneTime<2.4&&!reduced){
+   const frame=Math.min(animations.celebrate.length-1,Math.floor(state.sceneTime*3.3));
+   drawImage(animations.celebrate[frame],x-110,feet-260,220,196);
+  }
+  sprite(name,t,x,feet,width,1,loop,pose);
   if(state.bouquet&&!['LOVE_RATING','SECRET_NO','FLOWER_ENDING','FINAL'].includes(sc)){
    const n=Math.floor(state.time*9)%8;drawImage(animations.hearts[n],100,feet-220,95,84);drawImage(animations.hearts[(n+3)%8],280,feet-235,90,80);
   }
  }
 }
-function loop(now){const dt=Math.min((now-last)/1000||0,.033);last=now;update(dt);draw();requestAnimationFrame(loop);}
-async function load(){try{const manifest=await fetch('assets/manifest.json').then(r=>r.json());const loadImage=path=>new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=()=>reject(new Error('Could not load '+path));im.src=path;});await Promise.all(Object.entries(manifest.images).map(async([key,path])=>images[key]=await loadImage(path)));await Promise.all(Object.entries(manifest.animations).map(async([key,paths])=>animations[key]=await Promise.all(paths.map(loadImage))));await Promise.all([document.fonts.load('400 18px Kalam'),document.fonts.load('700 32px Kalam')]);$('#loading').remove();renderUI();requestAnimationFrame(loop);}catch(e){$('#loading').textContent='The garden could not load. Please refresh the page.';console.error(e);}}
+let assetLoader;
+async function ensureSceneAssets(scene){
+ const stage=stageForScene(scene);
+ await assetLoader.loadStage('title');
+ if(stage!=='title')await assetLoader.loadStage('intro');
+ if(stage==='hunt'||stage==='cliff')await assetLoader.loadStage('hunt');
+ if(stage==='cliff')await assetLoader.loadStage('cliff');
+ if(stage==='story')await assetLoader.loadStage('story');
+}
+function warmNextScene(scene){
+ const next={TITLE:'intro',INTRO:'hunt',FLOWER_COLLECTION:'cliff',SPECIAL_FLOWER:'story'}[scene];
+ if(next)assetLoader.loadStage(next).then(()=>{if(scene==='FLOWER_COLLECTION')return assetLoader.loadStage('story');}).catch(()=>{});
+}
+function loop(now){
+ const dt=Math.min((now-last)/1000||0,.033);last=now;
+ if(!document.hidden&&!state.paused){update(dt);draw();}
+ requestAnimationFrame(loop);
+}
+async function load(){try{
+ const manifest=await fetch('assets/manifest.json').then(r=>r.json());
+ const loadImage=path=>new Promise((resolve,reject)=>{const im=new Image();im.decoding='async';im.onload=()=>resolve(im);im.onerror=()=>reject(new Error('Could not load '+path));im.src=path;});
+ assetLoader=createAssetLoader(manifest,images,animations,loadImage);
+ await Promise.all([assetLoader.loadStage('title'),document.fonts.load('400 18px Kalam'),document.fonts.load('700 32px Kalam')]);
+ $('#loading').remove();renderUI();requestAnimationFrame(loop);
+ // Let the title paint before warming the next scene.
+ setTimeout(()=>warmNextScene('TITLE'),150);
+}catch(e){$('#loading').textContent='The garden could not load. Please refresh the page.';console.error(e);}}
 window.addEventListener('pagehide',()=>{
  const payload=JSON.stringify({
   sessionId,
-  playerName:state.playerName||localStorage.getItem('flower_player_name')||'Cute Little Mouse',
+  playerName:state.playerName||savedPreference('flower_player_name')||'Cute Little Mouse',
   flowersCollected:state.collected?state.collected.length:0,
   specialFlower:state.special?1:0,
   jumpAttempts:state.attempts||0,
@@ -241,7 +296,7 @@ window.addEventListener('pagehide',()=>{
   loveRatingIndex:state.submittedRatingIndex??null,
   secretAnswer:state.secretAnswer||null,
   meetingChoice:state.meetingChoice||null,
-  meetingDate:state.savedDate||state.date||null,
+  meetingDate:state.savedDate||null,
   currentScene:state.scene,
   completed:state.scene==='FINAL'?1:0,
   playTime:Math.round(state.time||0)

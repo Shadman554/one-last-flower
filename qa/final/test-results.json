@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "scenes": "Three complete actual-input playthroughs",
+  "scenes": "Two complete actual-input playthroughs",
   "ratings": [
     "10/10",
     "20/10",
@@ -13,13 +13,16 @@
   "confirmedRows": 1,
   "pageErrors": [],
   "checks": [
+    "Four-flower stepped route and moving bridge",
+    "Fourth flower lands safely",
     "Movement and both jumps",
     "Pause and resume",
+    "Unconfirmed dates stay unsaved",
     "All dialogue lines",
     "All rating reactions",
     "Minimum rating joke",
     "Yes and No",
-    "Skip question",
+    "No skip link",
     "Not yet",
     "Future calendar",
     "Failed save and retry",

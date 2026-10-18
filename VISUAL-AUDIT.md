@@ -1,6 +1,6 @@
 # Visual and flow correction audit
 
-The game now uses the supplied empty garden and cliff backgrounds, new flower PNGs, original character frames, and the supplied final dialogue. Movement and jump physics remain unchanged. Scene artwork is composited from PNGs, with CSS reserved for layout, text, focus, and interaction.
+The game now uses the supplied empty garden and cliff backgrounds, new flower PNGs, original character frames, and the supplied final dialogue. Movement and jump physics remain unchanged; the later difficulty update expands the four-flower platform route. Scene artwork is composited from PNGs, with CSS reserved for layout, text, focus, and interaction.
 
 ## Code-generated or inconsistent visuals found
 
@@ -56,13 +56,13 @@ Kalam is distributed under SIL Open Font License 1.1. The license is included in
 
 ## Flow and database verification
 
-- Three complete actual-input playthroughs passed, covering all six submitted rating reactions, the minimum-rating joke, both playful answers, both real meeting outcomes and replay.
+- Two complete actual-input playthroughs passed, covering all six submitted rating reactions, the minimum-rating joke, both playful answers, both real meeting outcomes and replay.
 - Dialogue text was checked against the supplied flow. No per-flower dialogue is added. Important story bubbles wait for Next.
-- The original physics function is byte-for-byte unchanged. Movement speed, gravity, jump powers, platform coordinates, collision rules, and existing collection/jump animation timings are preserved.
-- The world is only rendered higher to align with the new painted ground and cliff. Existing raised-platform gameplay remains available.
-- Five automated engine/server tests passed, including persistence after reopening the database, duplicate retry prevention, invalid/past dates, and blocking public access to private files.
-- Confirming is the sole date write action. Calendar browsing, selecting dates, rating, and answering questions produced no database writes. A simulated failed save remained on the calendar and a retry saved once.
-- Test dates were written only to a separate temporary database. The live game database was left empty.
+- The original physics function is byte-for-byte unchanged. Movement speed, gravity, jump powers, collision rules, and existing collection/jump animation timings are preserved.
+- The world is only rendered higher to align with the new painted ground and cliff. The hunt now uses nine original-art platforms across a longer route, including a moving bridge; the special-flower scene remains unchanged.
+- Fourteen automated animation/loading/engine/server tests passed, including persistence after reopening the database, duplicate retry prevention, invalid/past dates, and blocking public access to private files.
+- Only confirming a date writes a meeting record. Unconfirmed selections are also excluded from player progress records. Player progress and choices are saved separately by the existing player dashboard feature. A simulated failed save remained on the calendar and a retry saved once.
+- Test dates were written only to a separate temporary database. Verification used isolated databases without adding test dates to the live game database.
 - Multi-touch movement/jump, release, and cancellation passed. Responsive layouts were checked at 320×568, 390×844, 430×932, 450×800, and 1280×800.
 - No browser JavaScript errors were reported. Physical mobile devices and Safari were not available for verification.
 
@@ -70,11 +70,11 @@ Kalam is distributed under SIL Open Font License 1.1. The license is included in
 
 ### Corrected scene overview
 
-![Corrected scene overview](<C:/Users/NAMI/Downloads/new game/qa/final/all-screens.png>)
+![Corrected scene overview](<C:/Users/NAMI/Downloads/new game/qa/optimized/all-screens.png>)
 
 ### Examples beside corrected gameplay
 
-![Examples beside corrected gameplay](<C:/Users/NAMI/Downloads/new game/qa/final/reference-comparison.png>)
+![Examples beside corrected gameplay](<C:/Users/NAMI/Downloads/new game/qa/optimized/reference-comparison.png>)
 
 ### Original and generated artwork comparison
 
@@ -86,18 +86,18 @@ Kalam is distributed under SIL Open Font License 1.1. The license is included in
 
 ## Individual screenshots
 
-- [Title](<C:/Users/NAMI/Downloads/new game/qa/final/title.png>)
-- [Flower hunt](<C:/Users/NAMI/Downloads/new game/qa/final/gameplay.png>)
-- [The last flower](<C:/Users/NAMI/Downloads/new game/qa/final/special-flower.png>)
-- [Bouquet](<C:/Users/NAMI/Downloads/new game/qa/final/bouquet-1.png>)
-- [Little message](<C:/Users/NAMI/Downloads/new game/qa/final/message-2.png>)
-- [Love rating](<C:/Users/NAMI/Downloads/new game/qa/final/rating.png>)
-- [Infinity reaction](<C:/Users/NAMI/Downloads/new game/qa/final/reaction-5-2.png>)
-- [Secret question](<C:/Users/NAMI/Downloads/new game/qa/final/secret-question.png>)
-- [Meeting choice](<C:/Users/NAMI/Downloads/new game/qa/final/invitation.png>)
-- [Calendar](<C:/Users/NAMI/Downloads/new game/qa/final/calendar.png>)
-- [Not yet](<C:/Users/NAMI/Downloads/new game/qa/final/not-yet-2.png>)
-- [Goodbye](<C:/Users/NAMI/Downloads/new game/qa/final/final.png>)
+- [Title](<C:/Users/NAMI/Downloads/new game/qa/optimized/title.png>)
+- [Flower hunt](<C:/Users/NAMI/Downloads/new game/qa/optimized/gameplay.png>)
+- [The last flower](<C:/Users/NAMI/Downloads/new game/qa/optimized/special-flower.png>)
+- [Bouquet](<C:/Users/NAMI/Downloads/new game/qa/optimized/bouquet-1.png>)
+- [Little message](<C:/Users/NAMI/Downloads/new game/qa/optimized/message-2.png>)
+- [Love rating](<C:/Users/NAMI/Downloads/new game/qa/optimized/rating.png>)
+- [Infinity reaction](<C:/Users/NAMI/Downloads/new game/qa/optimized/reaction-5-2.png>)
+- [Secret question](<C:/Users/NAMI/Downloads/new game/qa/optimized/secret-question.png>)
+- [Meeting choice](<C:/Users/NAMI/Downloads/new game/qa/optimized/invitation.png>)
+- [Calendar](<C:/Users/NAMI/Downloads/new game/qa/optimized/calendar.png>)
+- [Not yet](<C:/Users/NAMI/Downloads/new game/qa/optimized/not-yet-2.png>)
+- [Goodbye](<C:/Users/NAMI/Downloads/new game/qa/optimized/final.png>)
 
 Additional dialogue, all rating reactions, failed/successful jumps, calendar retry, and mobile screenshots are retained in `qa/final/`.
 
@@ -105,10 +105,10 @@ Additional dialogue, all rating reactions, failed/successful jumps, calendar ret
 
 | Supplied file | Role |
 | --- | --- |
-| butterfly 1.png | Inspected and retained; available in prepared assets but not shown in the final flow |
-| butterfly 2.png | Used in the final game: butterfly2 |
+| butterfly 1.png | Used in the final game: butterfly1 |
+| butterfly 2.png | Inspected and retained; available in prepared assets but not shown in the final flow |
 | butterfly 3.png | Inspected and retained; available in prepared assets but not shown in the final flow |
-| butterfly 4.png | Inspected and retained; available in prepared assets but not shown in the final flow |
+| butterfly 4.png | Used in the final game: butterfly4 |
 | Celebration Effect Sprite Sheet.png | Used in the final game: celebrate |
 | empty background1  .png | Used in the final game: garden-hunt |
 | empty background2.png | Used in the final game: garden-cliff |
@@ -126,11 +126,11 @@ Additional dialogue, all rating reactions, failed/successful jumps, calendar ret
 | Garden background without characters, text, or UI.png | Inspected and retained; available in prepared assets but not shown in the final flow |
 | Glossy Kawaii Pink Flower Asset.png | Inspected and retained; available in prepared assets but not shown in the final flow |
 | Ground platform tiles for walking and jumping.png | Used in the final game: ground |
-| hadgehog crying.png | Inspected and retained; available in prepared assets but not shown in the final flow |
+| hadgehog crying.png | Used in the final game: cry |
 | Hadgehog goodbye waving.png | Used in the final game: wave |
 | hadgehog happy celebration.png | Used in the final game: happy |
-| hadgehog pleading.png | Inspected and retained; available in prepared assets but not shown in the final flow |
-| hadgehog pouting.png | Inspected and retained; available in prepared assets but not shown in the final flow |
+| hadgehog pleading.png | Used in the final game: plead |
+| hadgehog pouting.png | Used in the final game: pout |
 | hadgehog sad.png | Inspected and retained; available in prepared assets but not shown in the final flow |
 | hadgehog shocked and dramatic.png | Used in the final game: shocked |
 | hadgehog shy and nervous.png | Used in the final game: shy |
@@ -165,3 +165,11 @@ Additional dialogue, all rating reactions, failed/successful jumps, calendar ret
 The supplied flower PNGs contained almost invisible pixels far outside the visible illustration. Their old fixed width/height rendering made the visible flowers too small and distorted some proportions. Rendering now crops to the visible source bounds and uses a single proportional scale, with stems anchored to the ground. Original PNG pixels remain unchanged. The cliff flower uses the supplied detailed third flower, and its two small sparkle accents sit outside the bloom. The collection effect remains unchanged.
 
 The requested 10/10 reply and shortened secret question are updated in `story.js`. The secret-question button now reads No with a sad emoji; Skip this question was removed. A targeted browser check verified all three No dialogue bubbles continue with Next to the meeting choice.
+
+## Four-flower challenge update
+
+The collection route now has a warm-up jump, a two-step climb, narrower stepping platforms, and a moving bridge before the fourth flower. All original platform/flower artwork is reused. Falling returns the hedgehog to safe grass, with collected flowers retained. The bridge carries a standing player and freezes on pause. Automated physics checks verify the route at 30 and 60 fps and throughout the bridge cycle.
+
+## Sprite detail update
+
+The original wing-flapping and celebration sheets supply flying, drifting, resting, and celebratory butterflies. The single-frame drifting and resting sprites were replaced with real wing cycles; their source sheets remain unchanged. Body anchors and selected wing frames prevent jumping between differently positioned illustrations, while runtime source crops remove printed sheet numbers. Petals reuse the original cutout PNG. Dialogue-specific crying, pouting, pleading, happy, and surprised poses hold gently instead of cycling unrelated expressions. No new illustration files were generated.

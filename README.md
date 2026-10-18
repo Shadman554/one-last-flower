@@ -14,7 +14,7 @@ Access the Admin & Player Insights Dashboard at http://localhost:4173/admin (def
 
 - Hold the arrows to walk and tap the up arrow to jump. Multi-touch works.
 - Keyboard: arrows or A/D to walk; Space, Up, or W to jump; Escape to pause.
-- Collect four flowers, including the original two raised-platform flowers. Continue to the cliff, fail the first jump, and succeed on the second.
+- Collect four flowers across a warm-up jump, a two-step climb, narrow stepping platforms, and a moving bridge. Missed jumps land safely on the grass. Continue to the cliff, fail the first jump, and succeed on the second.
 - Dialogue uses your supplied final wording. Important story bubbles advance with Next. The fourth-flower message waits for Next. The existing fast jump and collection animation timings are retained.
 - The love slider has six choices: 10/10, 20/10, 50/10, 100/10, 1000/10, and infinity. Only Submit answer shows its reaction. Try another number lets the player explore them.
 - The playful Yes/No question is separate from the real meeting choice. Its No button uses a sad emoji and continues with Next. Not yet leads to a calm flower ending. Both endings finish with a wave and Play again.
@@ -27,7 +27,7 @@ Movement speed, gravity, collision logic, ordinary jump height, and the two spec
 The server creates `data/meeting-dates.sqlite` automatically. Set `GAME_DB_PATH` to choose another persistent location. Back up this file to preserve confirmed dates and player data.
 
 When players interact with the game, the database records:
-- **Player profile / session**: Player name (entered on title screen or "Cute Little Mouse"), session UUID, start & finish timestamps, play duration.
+- **Player profile / session**: Player name ("Cute Little Mouse" by default), session UUID, start & finish timestamps, play duration.
 - **Milestones**: Flowers collected (0-4), special cliff flower bouquet, jump attempts.
 - **Player choices**: Love rating selected (10/10 up to ∞), Secret Question response ("Yes ❤️" or "No 😢"), and Meeting Choice ("Choose a day ❤️" or "Not yet 🌸").
 - **Confirmed dates**: Validated future date confirmed in the calendar, with idempotent retry deduplication.
@@ -37,6 +37,8 @@ To view saved player data and confirmed dates, open the Admin Dashboard at `/adm
 ## Artwork and typography
 
 All 54 source PNGs remain in the project root. `assets/manifest.json` records them and the extracted frames. There are 192 transparent animation frames, including 102 frames extracted from the newly supplied sheets. Only relevant expressions are shown; the Not yet ending never uses the sad or crying sheets. Thinking and shy scenes hold one consistent original pose with a gentle 4.5-second breathing cycle, rather than cycling through different expressions. Reduced-motion mode holds those poses still.
+
+The small drifting and resting butterflies now use the original wing-flapping sheet with body alignment, rather than a single still pose. The celebratory butterfly uses the original celebration sheet. The other butterfly sheets remain available as source artwork. Original petal cutouts drift slowly along the garden edges. Crying, pouting, pleading, surprised, and happy poses match dialogue beats and hold with gentle breathing.
 
 Flowers render from their visible source bounds at a uniform scale, preserving the original petal shapes and round centers. Transparent padding does not affect their size or ground position. The special flower uses the supplied detailed third flower; small sparkle accents sit outside its bloom instead of covering its petals.
 
@@ -56,8 +58,16 @@ Background music is your supplied `1018.mp3`, copied unchanged to `assets/audio/
 
 `qa/final-playthrough.cjs` plays the game with actual keyboard and button input twice, checks exact dialogue and all six reactions, both secret answers, both meeting endings, absence of the skip link, save failure/retry, pause, replay, and responsive layouts. `qa/touch.cjs` checks simultaneous touch movement/jump, release, and cancellation. `qa/music.cjs` verifies MP3 playback from Start, continuity across scenes, mute, pause/resume, replay, and audio range requests. These scripts use this workspace’s bundled Playwright path; adjust that import on another computer.
 
+`qa/resilience.cjs` checks blocked browser storage, UUID fallback, reduced motion, automatic pause, restart, and failed asset loading. Unconfirmed calendar selections are excluded from player records.
+
 Reviewed in Edge/Chromium at 320×568, 390×844, 430×932, 450×800, and 1280×800. Physical phone and Safari testing was not performed.
 
 To reproduce asset preparation, use Python with Pillow, NumPy, and SciPy, then run these in order: `tools/process_assets.py`, `tools/prepare_visual_assets.py`, and `tools/import_new_art.py`. The illustrated source atlases for the second step are retained in `qa/visual-fix/`. Asset preparation is not required to play.
 
 The downloadable game archive includes the runtime, fonts and licenses, server, tests, and this README. Full source sheets and the screenshot audit stay in the workspace.
+
+## Faster loading and rendering
+
+The title loads first, with the next scenes prepared in the background. Unused sheets are not fetched. Failed scene assets can be retried. Music downloads when Start is pressed. The static original background is composited as a CSS image rather than scaled into the canvas every frame; canvas drawing pauses while paused or hidden. No image quality or jump physics were reduced.
+
+A cold-cache Edge test at 12 Mbps with 40 ms latency measured title readiness at 19.50 seconds before and 3.12 seconds after, with received data dropping from 27.62 MB to 4.44 MB. These are one controlled before/after run, not a guarantee for every device or connection. See `qa/performance/before.json` and `after.json`.

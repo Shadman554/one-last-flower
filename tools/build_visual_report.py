@@ -1,10 +1,10 @@
 """Create review contact sheets and an audit from finished PNGs; no game art is drawn."""
 from pathlib import Path
-import json
+import json, os
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT=Path(__file__).resolve().parents[1]
-QA=ROOT/'qa/final'
+QA=ROOT/os.environ.get('QA_OUTPUT','qa/final')
 font=ImageFont.truetype(str(ROOT/'assets/fonts/Kalam-Regular.ttf'),23)
 
 def fit_on(canvas,path,box):
@@ -26,7 +26,7 @@ art=[('Original Start',ROOT/'assets/start.png'),('Original Next',ROOT/'assets/ne
 montage(art,3,420,250,ROOT/'qa/visual-fix/artwork-comparison.png')
 
 manifest=json.loads((ROOT/'assets/manifest.json').read_text())
-active={'idle','walk','jump','recover','pick','present','sparkle','dust','hearts','celebrate','flower','left','right','jump-button','card','music','mute','pause','start','next','counter','ground','think','turn','shy','shocked','happy','wave','butterfly2','garden-hunt','garden-cliff','flower-one','flower-two','flower-three'}
+active={'idle','walk','jump','recover','pick','present','sparkle','dust','hearts','celebrate','flower','left','right','jump-button','card','music','mute','pause','start','next','counter','ground','think','turn','shy','shocked','happy','wave','cry','pout','plead','butterfly1','butterfly4','garden-hunt','garden-cliff','flower-one','flower-two','flower-three'}
 def link(label,path):return f'[{label}](<{path.as_posix()}>)'
 
 report='''# Visual and flow correction audit
@@ -87,13 +87,13 @@ Kalam is distributed under SIL Open Font License 1.1. The license is included in
 
 ## Flow and database verification
 
-- Three complete actual-input playthroughs passed, covering all six submitted rating reactions, the minimum-rating joke, both playful answers, both real meeting outcomes and replay.
+- Two complete actual-input playthroughs passed, covering all six submitted rating reactions, the minimum-rating joke, both playful answers, both real meeting outcomes and replay.
 - Dialogue text was checked against the supplied flow. No per-flower dialogue is added. Important story bubbles wait for Next.
 - The original physics function is byte-for-byte unchanged. Movement speed, gravity, jump powers, collision rules, and existing collection/jump animation timings are preserved.
 - The world is only rendered higher to align with the new painted ground and cliff. The hunt now uses nine original-art platforms across a longer route, including a moving bridge; the special-flower scene remains unchanged.
-- Eight automated engine/server tests passed, including persistence after reopening the database, duplicate retry prevention, invalid/past dates, and blocking public access to private files.
-- Confirming is the sole date write action. Calendar browsing, selecting dates, rating, and answering questions produced no database writes. A simulated failed save remained on the calendar and a retry saved once.
-- Test dates were written only to a separate temporary database. The live game database was left empty.
+- Fourteen automated animation/loading/engine/server tests passed, including persistence after reopening the database, duplicate retry prevention, invalid/past dates, and blocking public access to private files.
+- Only confirming a date writes a meeting record. Unconfirmed selections are also excluded from player progress records. Player progress and choices are saved separately by the existing player dashboard feature. A simulated failed save remained on the calendar and a retry saved once.
+- Test dates were written only to a separate temporary database. Verification used isolated databases without adding test dates to the live game database.
 - Multi-touch movement/jump, release, and cancellation passed. Responsive layouts were checked at 320×568, 390×844, 430×932, 450×800, and 1280×800.
 - No browser JavaScript errors were reported. Physical mobile devices and Safari were not available for verification.
 
@@ -115,5 +115,6 @@ for source in sorted(manifest['sources'],key=lambda s:s['file'].lower()):
     report+=f"| {source['file']} | {role} |\n"
 report+='\n## Flower follow-up correction\n\nThe supplied flower PNGs contained almost invisible pixels far outside the visible illustration. Their old fixed width/height rendering made the visible flowers too small and distorted some proportions. Rendering now crops to the visible source bounds and uses a single proportional scale, with stems anchored to the ground. Original PNG pixels remain unchanged. The cliff flower uses the supplied detailed third flower, and its two small sparkle accents sit outside the bloom. The collection effect remains unchanged.\n\nThe requested 10/10 reply and shortened secret question are updated in `story.js`. The secret-question button now reads No with a sad emoji; Skip this question was removed. A targeted browser check verified all three No dialogue bubbles continue with Next to the meeting choice.\n'
 report+='\n## Four-flower challenge update\n\nThe collection route now has a warm-up jump, a two-step climb, narrower stepping platforms, and a moving bridge before the fourth flower. All original platform/flower artwork is reused. Falling returns the hedgehog to safe grass, with collected flowers retained. The bridge carries a standing player and freezes on pause. Automated physics checks verify the route at 30 and 60 fps and throughout the bridge cycle.\n'
+report+='\n## Sprite detail update\n\nThe original wing-flapping and celebration sheets supply flying, drifting, resting, and celebratory butterflies. The single-frame drifting and resting sprites were replaced with real wing cycles; their source sheets remain unchanged. Body anchors and selected wing frames prevent jumping between differently positioned illustrations, while runtime source crops remove printed sheet numbers. Petals reuse the original cutout PNG. Dialogue-specific crying, pouting, pleading, happy, and surprised poses hold gently instead of cycling unrelated expressions. No new illustration files were generated.\n'
 (ROOT/'VISUAL-AUDIT.md').write_text(report,encoding='utf-8')
 print('Created review images and VISUAL-AUDIT.md')

@@ -177,3 +177,8 @@ h1,h2{color:#38251f}
 .range-labels{font-size:14px}
 .calendar-note{font-size:15px;line-height:1.2}
 .save-error{position:absolute;left:24px;right:24px;bottom:-14px;max-width:none;margin:0;font-size:15px;line-height:1.25}
+
+/* Keep longer messages inside the illustrated toast frame. */
+.toast span{max-width:215px;line-height:1.3}
+
+#canvas{background-size:100% 100%;background-repeat:no-repeat}

@@ -20,6 +20,8 @@ const publicFiles=new Set([
  '/index.html',
  '/game.js',
  '/engine.js',
+ '/animation.js',
+ '/asset-loader.js',
  '/story.js',
  '/style.css',
  '/admin.html',

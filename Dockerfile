@@ -18,7 +18,7 @@ COPY package.json ./
 RUN npm install --omit=dev
 
 # Copy application code and assets
-COPY server.mjs meeting-store.mjs engine.js story.js game.js ./
+COPY server.mjs meeting-store.mjs engine.js story.js animation.js asset-loader.js game.js ./
 COPY index.html style.css admin.html admin.css admin.js ./
 COPY assets/ ./assets/
 
